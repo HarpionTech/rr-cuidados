@@ -1,7 +1,6 @@
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import AnimatedItem from "@/components/ui/AnimatedItem";
 import RevealText from "@/components/ui/RevealText";
-import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 
 const cidades = [
   "Florianópolis",
@@ -61,9 +60,6 @@ export default function Regioes() {
                   →
                 </span>
                 {c}
-              </span>
-              <span className="text-[#25d366] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <WhatsAppIcon size={22} />
               </span>
             </a>
           </AnimatedItem>
