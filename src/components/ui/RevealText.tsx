@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { ElementType, ReactNode } from "react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -19,6 +19,7 @@ export default function RevealText({
   mode?: "mask" | "up";
   delay?: number;
 }) {
+  const reduceMotion = useReducedMotion();
   if (mode === "mask") {
     const Outer = motion[as as "div"];
     return (
@@ -26,14 +27,16 @@ export default function RevealText({
         className={`block overflow-hidden pb-[0.12em] ${className}`}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, margin: "-80px" }}
+        viewport={{ once: true, amount: 0.2, margin: "0px 0px -6% 0px" }}
         variants={{ hidden: {}, show: {} }}
       >
         <motion.span
           className="block"
           variants={{
-            hidden: { y: "115%" },
-            show: { y: 0, transition: { ...reveal, delay } },
+            hidden: reduceMotion ? { opacity: 0 } : { y: "110%" },
+            show: reduceMotion
+              ? { opacity: 1, transition: { duration: 0.01 } }
+              : { y: 0, transition: { ...reveal, duration: 0.78, delay } },
           }}
         >
           {children}
@@ -46,10 +49,10 @@ export default function RevealText({
   return (
     <MotionTag
       className={className}
-      initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ ...reveal, delay }}
+      initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2, margin: "0px 0px -6% 0px" }}
+      transition={{ ...reveal, duration: reduceMotion ? 0.01 : 0.72, delay }}
     >
       {children}
     </MotionTag>

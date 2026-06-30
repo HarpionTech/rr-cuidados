@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -19,23 +19,26 @@ export default function AnimatedItem({
   /** soft = blur + rise · card = blur + rise + leve escala */
   variant?: "soft" | "card";
 }) {
+  const reduceMotion = useReducedMotion();
   const MotionTag = motion[as];
-  const hidden =
+  const hidden = reduceMotion
+    ? { opacity: 0 }
+    :
     variant === "card"
-      ? { opacity: 0, y: 56, scale: 0.96, filter: "blur(10px)" }
-      : { opacity: 0, y: 48, filter: "blur(8px)" };
+      ? { opacity: 0, y: 36, scale: 0.975 }
+      : { opacity: 0, y: 30 };
   const show =
     variant === "card"
-      ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }
-      : { opacity: 1, y: 0, filter: "blur(0px)" };
+      ? { opacity: 1, y: 0, scale: 1 }
+      : { opacity: 1, y: 0 };
 
   return (
     <MotionTag
       className={className}
       initial={hidden}
       whileInView={show}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.9, ease: EASE, delay }}
+      viewport={{ once: true, amount: 0.14, margin: "0px 0px -6% 0px" }}
+      transition={{ duration: reduceMotion ? 0.01 : 0.68, ease: EASE, delay }}
     >
       {children}
     </MotionTag>

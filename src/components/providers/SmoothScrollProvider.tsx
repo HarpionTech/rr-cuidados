@@ -9,6 +9,15 @@ export default function SmoothScrollProvider({
   children: React.ReactNode;
 }) {
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+
+    // Touch já tem inércia nativa otimizada pelo sistema. Manter um RAF global
+    // do Lenis nesses dispositivos só disputa CPU com o canvas e o navegador.
+    if (prefersReducedMotion || isTouchDevice) return;
+
     const isSafari =
       typeof navigator !== "undefined" &&
       /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -18,7 +27,7 @@ export default function SmoothScrollProvider({
       lerp: isSafari ? 0.12 : 0.14,
       smoothWheel: true,
       wheelMultiplier: 1.1,
-      syncTouch: false, // no mobile usa o scroll nativo (mais leve)
+      syncTouch: false,
     });
 
     let rafId: number;

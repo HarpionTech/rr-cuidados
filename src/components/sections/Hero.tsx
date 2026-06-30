@@ -16,7 +16,8 @@ export default function Hero() {
   const outroRef = useRef<HTMLDivElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const tickingRef = useRef(false);
-  const [progress, setProgress] = useState(0);
+  const frameStepRef = useRef(1);
+  const lastFrameRef = useRef(-1);
   const [loaded, setLoaded] = useState(false);
   const [exiting, setExiting] = useState(false);
   const mountRef = useRef(Date.now());
@@ -33,18 +34,26 @@ export default function Hero() {
   // preload de todos os frames com barra de progresso real
   useEffect(() => {
     let done = 0;
-    const imgs: HTMLImageElement[] = [];
+    const imgs: HTMLImageElement[] = new Array(FRAME_COUNT);
     let cancelled = false;
-    for (let i = 0; i < FRAME_COUNT; i++) {
+    const width = window.innerWidth;
+    const step = width < 640 ? 3 : width < 1024 ? 2 : 1;
+    frameStepRef.current = step;
+    const frameIndexes = Array.from(
+      { length: Math.floor((FRAME_COUNT - 1) / step) + 1 },
+      (_, i) => i * step
+    );
+
+    for (const i of frameIndexes) {
       const img = new Image();
+      img.decoding = "async";
       img.src = framePath(i);
       img.onload = img.onerror = () => {
         done++;
         if (cancelled) return;
-        setProgress(Math.round((done / FRAME_COUNT) * 100));
-        if (done === FRAME_COUNT) setLoaded(true);
+        if (done === frameIndexes.length) setLoaded(true);
       };
-      imgs.push(img);
+      imgs[i] = img;
     }
     imagesRef.current = imgs;
     return () => {
@@ -60,12 +69,11 @@ export default function Hero() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const isMobile = () => window.innerWidth < 768;
-
     const sizeCanvas = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const cssW = window.innerWidth;
       const cssH = canvas.getBoundingClientRect().height;
+      const dprCap = cssW < 640 ? 1 : cssW < 1024 ? 1.25 : 1.75;
+      const dpr = Math.min(window.devicePixelRatio || 1, dprCap);
       canvas.width = Math.round(cssW * dpr);
       canvas.height = Math.round(cssH * dpr);
       canvas.style.width = cssW + "px";
@@ -90,7 +98,7 @@ export default function Hero() {
         const bgH = img.naturalHeight * bgScale;
 
         ctx.save();
-        ctx.filter = "blur(18px) brightness(0.72)";
+        ctx.globalAlpha = 0.72;
         ctx.drawImage(
           img,
           (cssW - bgW) / 2,
@@ -133,10 +141,24 @@ export default function Hero() {
 
     const render = () => {
       const rect = section.getBoundingClientRect();
+      if (rect.bottom <= 0 || rect.top >= window.innerHeight) {
+        tickingRef.current = false;
+        return;
+      }
       const total = section.offsetHeight - window.innerHeight;
       const p = Math.min(Math.max(-rect.top / total, 0), 1);
-      const frame = Math.min(Math.floor(p * FRAME_COUNT), FRAME_COUNT - 1);
-      drawFrame(frame);
+      const requestedFrame = Math.min(
+        Math.floor(p * FRAME_COUNT),
+        FRAME_COUNT - 1
+      );
+      const frame = Math.min(
+        Math.round(requestedFrame / frameStepRef.current) * frameStepRef.current,
+        FRAME_COUNT - 1
+      );
+      if (frame !== lastFrameRef.current) {
+        lastFrameRef.current = frame;
+        drawFrame(frame);
+      }
 
       // intro some até 22% do scroll; outro aparece de 72% a 100%
       if (introRef.current) {
@@ -158,6 +180,7 @@ export default function Hero() {
     };
 
     const onResize = () => {
+      lastFrameRef.current = -1;
       sizeCanvas();
       render();
     };
@@ -173,7 +196,7 @@ export default function Hero() {
   }, [loaded]);
 
   return (
-    <section ref={sectionRef} className="relative h-[240svh] md:h-[300vh]">
+    <section ref={sectionRef} className="relative h-[220svh] md:h-[250svh] xl:h-[300vh]">
       {/* preloader (branded) — sai como uma cortina que sobe revelando o hero */}
       <div
         aria-hidden={exiting}
@@ -202,8 +225,8 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="sticky top-0 h-[100svh] min-h-[620px] w-full overflow-hidden md:h-screen md:min-h-0">
-        <canvas ref={canvasRef} className="h-full w-full" />
+      <div className="sticky top-0 h-[100svh] min-h-[620px] w-full translate-z-0 overflow-hidden will-change-transform md:h-screen md:min-h-0">
+        <canvas ref={canvasRef} className="h-full w-full translate-z-0 [will-change:contents]" />
 
         {/* véu pra legibilidade */}
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(10,20,34,0.35)_0%,rgba(10,20,34,0.02)_34%,rgba(10,20,34,0.38)_55%,rgba(10,20,34,0.94)_82%)] md:bg-[linear-gradient(90deg,rgba(10,20,34,0.72)_0%,rgba(10,20,34,0.32)_45%,rgba(10,20,34,0)_72%),linear-gradient(180deg,rgba(10,20,34,0.35)_0%,rgba(10,20,34,0.15)_40%,rgba(10,20,34,0.78)_100%)]" />
