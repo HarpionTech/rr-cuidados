@@ -65,8 +65,8 @@ export default function Hero() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const cssW = window.innerWidth;
       const cssH = window.innerHeight;
-      canvas.width = cssW * dpr;
-      canvas.height = cssH * dpr;
+      canvas.width = Math.round(cssW * dpr);
+      canvas.height = Math.round(cssH * dpr);
       canvas.style.width = cssW + "px";
       canvas.style.height = cssH + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -77,14 +77,14 @@ export default function Hero() {
       if (!img || !img.complete || !img.naturalWidth) return;
       const cssW = window.innerWidth;
       const cssH = window.innerHeight;
-      // sem zoom extra no mobile (a filmagem tem 2 pessoas; zoom cortava os rostos)
-      const zoom = isMobile() ? 1.02 : 1;
-      const scale = Math.max(cssW / img.naturalWidth, cssH / img.naturalHeight) * zoom;
+      // correção móvil para filmagem com 2 pessoas: sem zoom para não cortar rostos
+      const isMobileDevice = cssW <= 768;
+      const zoom = isMobileDevice ? 1 : 1;
+      const scale = Math.max(cssW / img.naturalWidth, cssH / img.naturalHeight);
       const dw = img.naturalWidth * scale;
       const dh = img.naturalHeight * scale;
-      // alinhamento vertical: 0 = topo, 0.5 = centro. Menor que 0.5 mostra
-      // mais o topo da cena (evita cortar as cabeças).
-      const VALIGN = 0.3;
+      // alinhamento vertical para mobile: prioriza preservação do enquadramento original
+      const VALIGN = isMobileDevice ? 0.25 : 0.3;
       const dx = (cssW - dw) / 2;
       const dy = (cssH - dh) * VALIGN;
       ctx.clearRect(0, 0, cssW, cssH);
@@ -121,11 +121,11 @@ export default function Hero() {
       sizeCanvas();
       render();
     };
+    window.addEventListener("resize", onResize, true);
 
     sizeCanvas();
     render();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
