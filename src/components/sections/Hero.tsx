@@ -69,6 +69,31 @@ export default function Hero() {
     if (!canvas || !section) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    let framesReleased = false;
+    let framesReloading = false;
+
+    const reloadFrames = () => {
+      if (framesReloading || imagesRef.current.length === FRAME_COUNT) return;
+      framesReloading = true;
+      const imgs: HTMLImageElement[] = new Array(FRAME_COUNT);
+      let done = 0;
+
+      for (let i = 0; i < FRAME_COUNT; i++) {
+        const img = new Image();
+        img.decoding = "async";
+        img.src = framePath(i);
+        img.onload = img.onerror = () => {
+          done++;
+          if (done !== FRAME_COUNT) return;
+          imagesRef.current = imgs;
+          framesReloading = false;
+          lastFrameRef.current = -1;
+          sizeCanvas();
+          render();
+        };
+        imgs[i] = img;
+      }
+    };
 
     const sizeCanvas = () => {
       const cssW = window.innerWidth;
@@ -142,7 +167,26 @@ export default function Hero() {
 
     const render = () => {
       const rect = section.getBoundingClientRect();
-      if (rect.bottom <= 0 || rect.top >= window.innerHeight) {
+      if (rect.bottom <= 0) {
+        if (!framesReleased) {
+          // Fora do hero, libera centenas de MB de pixels decodificados e o
+          // backing buffer do canvas. Os JPGs compactados continuam no cache.
+          imagesRef.current = [];
+          canvas.width = 1;
+          canvas.height = 1;
+          framesReleased = true;
+          lastFrameRef.current = -1;
+        }
+        tickingRef.current = false;
+        return;
+      }
+      if (rect.top >= window.innerHeight) {
+        tickingRef.current = false;
+        return;
+      }
+      if (framesReleased) {
+        framesReleased = false;
+        reloadFrames();
         tickingRef.current = false;
         return;
       }

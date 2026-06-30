@@ -38,7 +38,7 @@ export default function Navbar() {
       <header
         className={`fixed inset-x-0 top-0 z-50 flex items-center justify-between px-5 pt-[env(safe-area-inset-top)] transition-all duration-500 sm:px-6 md:px-[7vw] ${
           scrolled
-            ? "bg-cream/80 pb-3 shadow-[0_1px_0_var(--color-line)] backdrop-blur-xl"
+            ? "bg-cream/95 pb-3 shadow-[0_1px_0_var(--color-line)] md:bg-cream/80 md:backdrop-blur-xl"
             : "pb-4 pt-4"
         }`}
       >
