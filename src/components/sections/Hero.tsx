@@ -37,7 +37,9 @@ export default function Hero() {
     const imgs: HTMLImageElement[] = new Array(FRAME_COUNT);
     let cancelled = false;
     const width = window.innerWidth;
-    const step = width < 640 ? 3 : width < 1024 ? 2 : 1;
+    // 76 frames em touch: leve o bastante para a memória, sem o aspecto travado
+    // causado pelo salto anterior de 3 em 3 imagens.
+    const step = width < 1024 ? 2 : 1;
     frameStepRef.current = step;
     const frameIndexes = Array.from(
       { length: Math.floor((FRAME_COUNT - 1) / step) + 1 },
@@ -196,7 +198,7 @@ export default function Hero() {
   }, [loaded]);
 
   return (
-    <section ref={sectionRef} className="relative h-[220svh] md:h-[250svh] xl:h-[300vh]">
+    <section ref={sectionRef} className="relative h-[180svh] md:h-[200svh] xl:h-[300vh]">
       {/* preloader (branded) — sai como uma cortina que sobe revelando o hero */}
       <div
         aria-hidden={exiting}
