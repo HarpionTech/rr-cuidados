@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { ArrowDown, ArrowUpRight } from "@phosphor-icons/react";
 import Button from "@/components/ui/Button";
 import { asset } from "@/lib/asset";
 
@@ -77,16 +78,56 @@ export default function Hero() {
       if (!img || !img.complete || !img.naturalWidth) return;
       const cssW = window.innerWidth;
       const cssH = canvas.getBoundingClientRect().height;
-      // No celular, preserva o centro da cena para manter cuidadora e idosa visíveis.
       const isMobileDevice = cssW <= 768;
+
+      ctx.clearRect(0, 0, cssW, cssH);
+
+      if (isMobileDevice) {
+        // O material original é 16:9. No retrato, uma base ampliada e desfocada
+        // preenche a tela enquanto o plano nítido usa um recorte mais aberto.
+        const bgScale = Math.max(cssW / img.naturalWidth, cssH / img.naturalHeight);
+        const bgW = img.naturalWidth * bgScale;
+        const bgH = img.naturalHeight * bgScale;
+
+        ctx.save();
+        ctx.filter = "blur(18px) brightness(0.72)";
+        ctx.drawImage(
+          img,
+          (cssW - bgW) / 2,
+          (cssH - bgH) * 0.32,
+          bgW,
+          bgH
+        );
+        ctx.restore();
+
+        const subjectScale = (cssW * 1.58) / img.naturalWidth;
+        const subjectW = img.naturalWidth * subjectScale;
+        const subjectH = img.naturalHeight * subjectScale;
+        const subjectY = Math.max(72, cssH * 0.08);
+
+        ctx.drawImage(
+          img,
+          (cssW - subjectW) / 2,
+          subjectY,
+          subjectW,
+          subjectH
+        );
+
+        const blend = ctx.createLinearGradient(0, subjectY, 0, subjectY + subjectH);
+        blend.addColorStop(0, "rgba(10,20,34,0.16)");
+        blend.addColorStop(0.72, "rgba(10,20,34,0.08)");
+        blend.addColorStop(1, "rgba(10,20,34,0.92)");
+        ctx.fillStyle = blend;
+        ctx.fillRect(0, subjectY, cssW, subjectH + 2);
+        return;
+      }
+
       const scale = Math.max(cssW / img.naturalWidth, cssH / img.naturalHeight);
       const dw = img.naturalWidth * scale;
       const dh = img.naturalHeight * scale;
-      // alinhamento vertical para mobile: prioriza preservação do enquadramento original
-      const VALIGN = isMobileDevice ? 0.32 : 0.3;
+      const VALIGN = 0.3;
       const dx = (cssW - dw) / 2;
       const dy = (cssH - dh) * VALIGN;
-      ctx.clearRect(0, 0, cssW, cssH);
       ctx.drawImage(img, dx, dy, dw, dh);
     };
 
@@ -165,7 +206,7 @@ export default function Hero() {
         <canvas ref={canvasRef} className="h-full w-full" />
 
         {/* véu pra legibilidade */}
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(10,20,34,0.42)_0%,rgba(10,20,34,0.08)_31%,rgba(10,20,34,0.9)_100%)] md:bg-[linear-gradient(90deg,rgba(10,20,34,0.72)_0%,rgba(10,20,34,0.32)_45%,rgba(10,20,34,0)_72%),linear-gradient(180deg,rgba(10,20,34,0.35)_0%,rgba(10,20,34,0.15)_40%,rgba(10,20,34,0.78)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(10,20,34,0.35)_0%,rgba(10,20,34,0.02)_34%,rgba(10,20,34,0.38)_55%,rgba(10,20,34,0.94)_82%)] md:bg-[linear-gradient(90deg,rgba(10,20,34,0.72)_0%,rgba(10,20,34,0.32)_45%,rgba(10,20,34,0)_72%),linear-gradient(180deg,rgba(10,20,34,0.35)_0%,rgba(10,20,34,0.15)_40%,rgba(10,20,34,0.78)_100%)]" />
 
         {/* intro */}
         <div
@@ -187,17 +228,19 @@ export default function Hero() {
               cada dia seja vivido com dignidade, paz e tranquilidade, no lugar
               mais seguro do mundo: o próprio lar.
             </p>
-            <div className="mt-5 grid w-full gap-3 sm:flex sm:flex-wrap sm:gap-4 md:mt-7">
+            <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3 md:mt-7 md:gap-4">
               <Button
                 href="https://api.whatsapp.com/send?phone=5548988803583&text=Ol%C3%A1!%20Gostaria%20de%20um%20atendimento."
                 external
                 size="lg"
-                className="w-full justify-center sm:w-auto"
+                className="min-h-12 !px-6 !py-3 text-sm sm:text-base"
               >
-                Agendar uma conversa
+                Agendar conversa
+                <ArrowUpRight size={18} weight="bold" />
               </Button>
-              <Button href="#cuidados" variant="ghost" size="lg" className="w-full justify-center !border-white-warm/40 !text-white-warm hover:!bg-white-warm/10 sm:w-auto">
-                Conhecer os cuidados
+              <Button href="#cuidados" variant="ghost" className="min-h-12 !border-0 !px-1 !py-3 text-sm !text-white-warm/90 shadow-none hover:!translate-y-0 hover:!text-brand-leaf">
+                Ver os cuidados
+                <ArrowDown size={17} weight="bold" />
               </Button>
             </div>
           </div>
