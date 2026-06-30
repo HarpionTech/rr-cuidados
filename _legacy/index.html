@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RR Cuidado Domiciliar — Cuidado que começa em casa</title>
+  <meta name="description" content="RR Cuidado Domiciliar — cuidado humanizado de idosos no conforto do seu lar. Equipe técnica, acolhimento e tranquilidade para sua família na Grande Florianópolis." />
+  <meta name="theme-color" content="#004a92" />
+
+  <!-- Favicon (logo na aba do navegador) -->
+  <link rel="icon" href="assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="RR Cuidado Domiciliar — Cuidado que começa em casa" />
+  <meta property="og:description" content="Cuidado humanizado de idosos no conforto do seu lar. Grande Florianópolis." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Hanken+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ===== Preloader ===== -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__inner">
+      <img class="preloader__mark-img" src="assets/logo.png" alt="" aria-hidden="true" />
+      <span class="preloader__word">cuidamos no conforto do seu lar</span>
+    </div>
+  </div>
+
+  <!-- ===== SVG sprite: marca (coração + folha) ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="brand-mark" viewBox="0 0 64 64">
+      <!-- coração -->
+      <path d="M32 56C32 56 8 41.5 8 24.5C8 15.9 14.7 9 23 9C27.8 9 31.9 11.6 32 16C32.1 11.6 36.2 9 41 9C49.3 9 56 15.9 56 24.5C56 41.5 32 56 32 56Z"
+            fill="none" stroke="var(--c-teal)" stroke-width="3"/>
+      <!-- folha -->
+      <path d="M32 44C32 34 26 28 18 27C18 37 24 43 32 44Z" fill="var(--c-green)"/>
+      <path d="M32 44C32 34 38 28 46 27C46 37 40 43 32 44Z" fill="var(--c-leaf)"/>
+      <path d="M32 47V32" stroke="var(--c-green-dark)" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+  </svg>
+
+  <!-- ===== Navbar ===== -->
+  <header class="nav" id="nav">
+    <a href="#hero" class="nav__brand" aria-label="RR Cuidado Domiciliar — início">
+      <img class="nav__mark" src="assets/logo.png" alt="RR Cuidado Domiciliar" />
+      <span class="nav__brand-text">
+        <strong>RR</strong>
+        <small>Cuidado Domiciliar</small>
+      </span>
+    </a>
+    <nav class="nav__links" aria-label="Navegação principal">
+      <a href="#sobre">Sobre</a>
+      <a href="#cuidados">Cuidados</a>
+      <a href="#diferenciais">Por que nós</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#regioes">Regiões</a>
+    </nav>
+    <a href="https://api.whatsapp.com/send?phone=5548988803583&text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20cuidado%20domiciliar." class="btn btn--nav" target="_blank" rel="noopener">Fale conosco</a>
+    <button class="nav__burger" id="burger" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <!-- ===== Mobile menu ===== -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="#sobre">Sobre</a>
+    <a href="#cuidados">Cuidados</a>
+    <a href="#diferenciais">Por que nós</a>
+    <a href="#depoimentos">Depoimentos</a>
+    <a href="#regioes">Regiões</a>
+    <a href="https://api.whatsapp.com/send?phone=5548988803583" target="_blank" rel="noopener" class="btn btn--primary">Fale conosco</a>
+  </div>
+
+  <main>
+    <!-- ===== Hero ===== -->
+    <section class="hero" id="hero">
+      <div class="hero__media">
+        <!-- Vídeo Higgsfield entra aqui. Enquanto não existe, o fallback (gradiente + poster) aparece. -->
+        <video class="hero__video" autoplay muted loop playsinline poster="assets/hero-fallback.jpg">
+          <source src="assets/hero.mp4" type="video/mp4" />
+        </video>
+        <div class="hero__veil"></div>
+      </div>
+
+      <div class="hero__content">
+        <span class="eyebrow">Cuidado domiciliar de idosos · Grande Florianópolis</span>
+        <h1 class="hero__title">
+          <span class="line" data-line>O conforto de</span>
+          <span class="line" data-line>estar em <em>casa.</em></span>
+          <span class="line" data-line>O cuidado de</span>
+          <span class="line" data-line>quem ama.</span>
+        </h1>
+        <p class="hero__sub">
+          Acolhemos quem você ama com técnica, presença e ternura — para que cada dia
+          seja vivido com dignidade, paz e tranquilidade, no lugar mais seguro do mundo: o próprio lar.
+        </p>
+        <div class="hero__actions">
+          <a href="https://api.whatsapp.com/send?phone=5548988803583&text=Ol%C3%A1!%20Gostaria%20de%20um%20atendimento." class="btn btn--primary" target="_blank" rel="noopener">Agendar uma conversa</a>
+          <a href="#cuidados" class="btn btn--ghost">Conhecer os cuidados</a>
+        </div>
+      </div>
+
+      <div class="hero__scroll" aria-hidden="true">
+        <span>role para descobrir</span>
+        <i></i>
+      </div>
+    </section>
+
+    <!-- ===== Marquee ===== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Presença diária</span><i>•</i><span>Equipe técnica</span><i>•</i><span>Acolhimento</span><i>•</i><span>Segurança</span><i>•</i><span>Dignidade</span><i>•</i>
+        <span>Presença diária</span><i>•</i><span>Equipe técnica</span><i>•</i><span>Acolhimento</span><i>•</i><span>Segurança</span><i>•</i><span>Dignidade</span><i>•</i>
+      </div>
+    </div>
+
+    <!-- ===== Sobre ===== -->
+    <section class="sobre" id="sobre">
+      <div class="section-head">
+        <span class="section-index">01 — Sobre</span>
+      </div>
+      <div class="sobre__grid">
+        <div class="sobre__text">
+          <h2 class="display reveal" data-reveal>
+            Cuidar é um gesto de amor que se faz com <em>responsabilidade</em>.
+          </h2>
+          <p class="reveal" data-reveal>
+            A RR Cuidado Domiciliar nasceu para levar tranquilidade às famílias que desejam o melhor
+            para seus idosos sem abrir mão do conforto e da familiaridade de casa. Unimos o rigor técnico
+            de uma equipe preparada à sensibilidade de quem entende que, por trás de cada cuidado,
+            existe uma história de vida.
+          </p>
+          <p class="reveal" data-reveal>
+            Acompanhamos rotinas, medicações, higiene, alimentação e — acima de tudo — oferecemos
+            companhia. Porque envelhecer bem é envelhecer cercado de respeito, paciência e afeto.
+          </p>
+          <a href="#contato" class="link-underline reveal" data-reveal>Conheça nossa forma de cuidar →</a>
+        </div>
+        <div class="sobre__stats">
+          <div class="stat reveal" data-reveal>
+            <span class="stat__num" data-count="100" data-suffix="%">0</span>
+            <span class="stat__label">cuidado humanizado</span>
+          </div>
+          <div class="stat reveal" data-reveal>
+            <span class="stat__num" data-count="24" data-suffix="h">0</span>
+            <span class="stat__label">disponibilidade conforme o plano</span>
+          </div>
+          <div class="stat reveal" data-reveal>
+            <span class="stat__num" data-count="1" data-prefix="#">0</span>
+            <span class="stat__label">prioridade: o bem-estar de quem você ama</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Cuidados / Serviços ===== -->
+    <section class="cuidados" id="cuidados">
+      <div class="section-head">
+        <span class="section-index">02 — Cuidados</span>
+        <h2 class="display reveal" data-reveal>Tudo que o lar precisa para acolher com segurança</h2>
+      </div>
+      <div class="cuidados__grid">
+        <article class="card reveal" data-reveal>
+          <span class="card__num">01</span>
+          <h3>Cuidador de idosos</h3>
+          <p>Acompanhamento integral nas atividades do dia a dia, com paciência e atenção contínua a cada necessidade.</p>
+        </article>
+        <article class="card reveal" data-reveal>
+          <span class="card__num">02</span>
+          <h3>Administração de medicação</h3>
+          <p>Controle responsável de horários e doses, seguindo rigorosamente a prescrição médica.</p>
+        </article>
+        <article class="card reveal" data-reveal>
+          <span class="card__num">03</span>
+          <h3>Higiene e conforto</h3>
+          <p>Banho, troca e cuidados pessoais conduzidos com respeito, discrição e total preservação da dignidade.</p>
+        </article>
+        <article class="card reveal" data-reveal>
+          <span class="card__num">04</span>
+          <h3>Alimentação assistida</h3>
+          <p>Apoio nas refeições e atenção à hidratação, respeitando restrições e o ritmo de cada pessoa.</p>
+        </article>
+        <article class="card reveal" data-reveal>
+          <span class="card__num">05</span>
+          <h3>Companhia e estímulo</h3>
+          <p>Conversas, atividades e presença afetuosa para manter a mente ativa e o coração tranquilo.</p>
+        </article>
+        <article class="card reveal" data-reveal>
+          <span class="card__num">06</span>
+          <h3>Apoio à mobilidade</h3>
+          <p>Auxílio em locomoção, exercícios e prevenção de quedas, para mais autonomia com segurança.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== Diferenciais ===== -->
+    <section class="diferenciais" id="diferenciais">
+      <div class="section-head">
+        <span class="section-index">03 — Por que a RR</span>
+        <h2 class="display reveal" data-reveal>Tranquilidade para a família,<br/>dignidade para quem é cuidado</h2>
+      </div>
+      <ul class="dif-list">
+        <li class="dif reveal" data-reveal>
+          <span class="dif__k">Equipe preparada</span>
+          <p>Profissionais com formação técnica e o cuidado humano que transforma rotina em acolhimento.</p>
+        </li>
+        <li class="dif reveal" data-reveal>
+          <span class="dif__k">Plano sob medida</span>
+          <p>Cada família é única. Construímos o cuidado de acordo com a necessidade e a rotina do seu lar.</p>
+        </li>
+        <li class="dif reveal" data-reveal>
+          <span class="dif__k">Comunicação próxima</span>
+          <p>Você sempre informado sobre o bem-estar do seu familiar, com transparência e confiança.</p>
+        </li>
+        <li class="dif reveal" data-reveal>
+          <span class="dif__k">Conforto de casa</span>
+          <p>O cuidado vai até onde o idoso se sente seguro — sem mudanças, sem rupturas, sem solidão.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== Depoimentos ===== -->
+    <section class="depoimentos" id="depoimentos">
+      <div class="section-head">
+        <span class="section-index">04 — Depoimentos</span>
+        <h2 class="display reveal" data-reveal>Famílias que confiaram seu maior tesouro</h2>
+      </div>
+      <div class="depo__grid">
+        <figure class="depo reveal" data-reveal>
+          <blockquote>“Encontramos na RR o cuidado que minha mãe merecia. Voltei a dormir tranquila sabendo que ela está em boas mãos, dentro de casa.”</blockquote>
+          <figcaption><strong>Marina S.</strong><span>filha · Florianópolis</span></figcaption>
+        </figure>
+        <figure class="depo reveal" data-reveal>
+          <blockquote>“Profissionais atenciosos e humanos. Meu pai criou um vínculo lindo com a cuidadora. É mais que um serviço, é afeto.”</blockquote>
+          <figcaption><strong>Carlos M.</strong><span>filho · São José</span></figcaption>
+        </figure>
+        <figure class="depo reveal" data-reveal>
+          <blockquote>“A paz de saber que alguém de confiança está cuidando não tem preço. Recomendo de olhos fechados.”</blockquote>
+          <figcaption><strong>Helena R.</strong><span>neta · Palhoça</span></figcaption>
+        </figure>
+      </div>
+      <p class="depo__note reveal" data-reveal>* Depoimentos ilustrativos — substitua pelos relatos reais dos seus clientes.</p>
+    </section>
+
+    <!-- ===== Regiões ===== -->
+    <section class="regioes" id="regioes">
+      <div class="section-head">
+        <span class="section-index">05 — Regiões</span>
+        <h2 class="display reveal" data-reveal>Atendemos a Grande Florianópolis</h2>
+      </div>
+      <div class="regioes__wrap">
+        <ul class="regioes__list">
+          <li class="reveal" data-reveal>Florianópolis</li>
+          <li class="reveal" data-reveal>São José</li>
+          <li class="reveal" data-reveal>Palhoça</li>
+          <li class="reveal" data-reveal>Biguaçu</li>
+          <li class="reveal" data-reveal>Santo Amaro da Imperatriz</li>
+          <li class="reveal" data-reveal>Governador Celso Ramos</li>
+        </ul>
+        <p class="regioes__cta reveal" data-reveal>
+          Não encontrou sua cidade? <a href="https://api.whatsapp.com/send?phone=5548988803583&text=Ol%C3%A1!%20Voc%C3%AAs%20atendem%20na%20minha%20regi%C3%A3o%3F" target="_blank" rel="noopener" class="link-underline">Fale com a gente</a> — podemos atender você também.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== CTA / Contato ===== -->
+    <section class="cta" id="contato">
+      <div class="cta__inner">
+        <span class="eyebrow reveal" data-reveal>Vamos conversar</span>
+        <h2 class="cta__title reveal" data-reveal>Dê a quem você ama o cuidado que ele merece.</h2>
+        <p class="reveal" data-reveal>Conte para nós sua necessidade. Vamos juntos desenhar o cuidado ideal — com tranquilidade, sem compromisso.</p>
+        <div class="cta__actions reveal" data-reveal>
+          <a href="https://api.whatsapp.com/send?phone=5548988803583&text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20conversa%20sobre%20cuidado%20domiciliar." class="btn btn--primary btn--lg" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Chamar no WhatsApp
+          </a>
+          <a href="https://www.instagram.com/rrcuidado/" class="btn btn--ghost btn--lg" target="_blank" rel="noopener">@rrcuidado no Instagram</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="footer__top">
+      <a href="#hero" class="nav__brand">
+        <img class="nav__mark" src="assets/logo.png" alt="RR Cuidado Domiciliar" />
+        <span class="nav__brand-text"><strong>RR</strong><small>Cuidado Domiciliar</small></span>
+      </a>
+      <p class="footer__tag">Cuidamos no conforto do seu lar.</p>
+    </div>
+    <div class="footer__grid">
+      <div>
+        <h4>Navegação</h4>
+        <a href="#sobre">Sobre</a>
+        <a href="#cuidados">Cuidados</a>
+        <a href="#diferenciais">Por que nós</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#regioes">Regiões</a>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <a href="https://api.whatsapp.com/send?phone=5548988803583" target="_blank" rel="noopener">WhatsApp (48) 98880-3583</a>
+        <a href="https://www.instagram.com/rrcuidado/" target="_blank" rel="noopener">Instagram @rrcuidado</a>
+      </div>
+      <div>
+        <h4>Atendimento</h4>
+        <span>Grande Florianópolis — SC</span>
+        <span>Cuidado domiciliar de idosos</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="year"></span> RR Cuidado Domiciliar. Todos os direitos reservados.</span>
+      <span>Feito com cuidado.</span>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flutuante -->
+  <a class="wa-float" href="https://api.whatsapp.com/send?phone=5548988803583&text=Ol%C3%A1!" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- GSAP + Lenis -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Cores da marca (extraídas da logo) */
+  --color-brand-blue: #004a92;
+  --color-brand-azure: #0061a9;
+  --color-brand-green: #3a9e3f;
+  --color-brand-leaf: #6cc04f;
+  --color-brand-orange: #f0901a;
+  --color-brand-red: #c01f1f;
+
+  /* Neutros quentes */
+  --color-cream: #f6f2ea;
+  --color-cream-2: #efe9dd;
+  --color-ink: #14233a;
+  --color-ink-soft: #46566b;
+  --color-line: #ddd6c8;
+  --color-white-warm: #fbf9f4;
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-hanken);
+}
+
+:root {
+  --background: #f6f2ea;
+  --foreground: #14233a;
+
+  /* sombra neumórfica quente (premium, suave) */
+  --card-shadow:
+    0 1px 2px rgba(20, 35, 58, 0.04),
+    0 6px 14px -6px rgba(20, 35, 58, 0.1),
+    0 24px 48px -24px rgba(20, 35, 58, 0.16);
+  --card-shadow-hover:
+    0 2px 4px rgba(0, 74, 146, 0.06),
+    0 16px 30px -12px rgba(0, 74, 146, 0.18),
+    0 36px 70px -30px rgba(0, 74, 146, 0.22);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-brand-green);
+  color: #fff;
+}
+
+/* grão sutil pra textura premium */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* botão Instagram — gradiente característico animado */
+.insta-gradient {
+  background: linear-gradient(
+    45deg,
+    #feda75 0%,
+    #fa7e1e 25%,
+    #d62976 50%,
+    #962fbf 75%,
+    #4f5bd5 100%
+  );
+  background-size: 220% 220%;
+  animation: insta-shift 5s ease-in-out infinite alternate;
+}
+@keyframes insta-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* pulso suave do logo no preloader (como um batimento) */
+@keyframes logo-beat {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.92;
+  }
+  50% {
+    transform: scale(1.09);
+    opacity: 1;
+  }
+}
+.logo-beat {
+  animation: logo-beat 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+/* utilitários */
+@utility neu {
+  background: var(--color-white-warm);
+  border: 1px solid var(--color-line);
+  box-shadow: var(--card-shadow);
+}
+
+@utility display-font {
+  font-family: var(--font-display), Georgia, serif;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
