@@ -36,10 +36,9 @@ export default function Hero() {
     let done = 0;
     const imgs: HTMLImageElement[] = new Array(FRAME_COUNT);
     let cancelled = false;
-    const width = window.innerWidth;
-    // 76 frames em touch: leve o bastante para a memória, sem o aspecto travado
-    // causado pelo salto anterior de 3 em 3 imagens.
-    const step = width < 1024 ? 2 : 1;
+    // Todos os dispositivos usam a sequência completa. A velocidade vem do
+    // percurso curto de scroll, não de saltos entre imagens.
+    const step = 1;
     frameStepRef.current = step;
     const frameIndexes = Array.from(
       { length: Math.floor((FRAME_COUNT - 1) / step) + 1 },
