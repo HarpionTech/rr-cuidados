@@ -7,6 +7,7 @@ import {
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import AnimatedItem from "@/components/ui/AnimatedItem";
 import RevealText from "@/components/ui/RevealText";
+import ScrollAccentLine from "@/components/ui/ScrollAccentLine";
 
 const items = [
   {
@@ -76,7 +77,10 @@ export default function Diferenciais() {
             delay={(i % 2) * 0.1}
             className="group relative grid grid-cols-[auto_1fr] items-start gap-5 overflow-hidden rounded-[22px] border border-line/90 bg-white-warm p-6 shadow-[var(--card-shadow)] transition-all duration-500 hover:-translate-y-1 hover:border-brand-blue/20 hover:shadow-[var(--card-shadow-hover)] md:p-7"
           >
-            <span className={`absolute inset-y-0 left-0 w-1 origin-bottom scale-y-[0.28] transition-transform duration-500 group-hover:scale-y-100 ${it.accent}`} />
+            <ScrollAccentLine
+              className={it.accent}
+              delay={i * 0.08}
+            />
 
             <span className="grid h-13 w-13 shrink-0 place-items-center rounded-2xl bg-brand-blue/[0.08] text-brand-blue transition-all duration-500 group-hover:-rotate-3 group-hover:bg-brand-blue group-hover:text-white-warm md:h-14 md:w-14">
               <it.Icon size={27} weight="duotone" />
