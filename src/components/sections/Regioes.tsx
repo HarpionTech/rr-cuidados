@@ -1,6 +1,7 @@
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import AnimatedItem from "@/components/ui/AnimatedItem";
 import RevealText from "@/components/ui/RevealText";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 
 const cidades = [
   "Florianópolis",
@@ -10,6 +11,12 @@ const cidades = [
   "Santo Amaro da Imperatriz",
   "Governador Celso Ramos",
 ];
+
+const WHATSAPP = "5548988803583";
+const waLink = (cidade: string) =>
+  `https://api.whatsapp.com/send?phone=${WHATSAPP}&text=${encodeURIComponent(
+    `Olá! Gostaria de saber sobre o cuidado domiciliar de idosos em ${cidade}.`
+  )}`;
 
 export default function Regioes() {
   return (
@@ -29,20 +36,36 @@ export default function Regioes() {
         Atendemos a Grande Florianópolis
       </RevealText>
 
-      <ul className="mt-12 grid border-t border-line sm:grid-cols-2 lg:grid-cols-3">
+      <AnimatedItem as="p" className="mt-4 max-w-[52ch] text-ink-soft">
+        Clique na sua cidade e fale com a gente no WhatsApp — já abrimos a
+        conversa com a mensagem pronta.
+      </AnimatedItem>
+
+      <ul className="mt-10 grid border-t border-line sm:grid-cols-2 lg:grid-cols-3">
         {cidades.map((c, i) => (
           <AnimatedItem
             as="li"
             key={c}
             delay={(i % 3) * 0.06}
-            className="group display-font cursor-default border-b border-line py-6 text-[clamp(1.4rem,3vw,2.2rem)] text-ink transition-colors hover:text-brand-blue"
+            className="border-b border-line"
           >
-            <span className="inline-flex items-center gap-3">
-              <span className="text-brand-orange opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                →
+            <a
+              href={waLink(c)}
+              target="_blank"
+              rel="noopener"
+              aria-label={`Falar no WhatsApp sobre cuidado em ${c}`}
+              className="group display-font flex items-center justify-between gap-3 py-6 text-[clamp(1.4rem,3vw,2.2rem)] text-ink transition-colors hover:text-brand-blue"
+            >
+              <span className="inline-flex items-center gap-3">
+                <span className="text-brand-orange opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  →
+                </span>
+                {c}
               </span>
-              {c}
-            </span>
+              <span className="text-[#25d366] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <WhatsAppIcon size={22} />
+              </span>
+            </a>
           </AnimatedItem>
         ))}
       </ul>

@@ -14,11 +14,11 @@ export default function SmoothScrollProvider({
       /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
     const lenis = new Lenis({
-      duration: 1.15,
-      // Safari (iOS) estabiliza com lerp maior e sem syncTouch
-      lerp: isSafari ? 0.1 : 0.08,
+      // lerp mais alto = scroll mais responsivo/fluido (menos "pesado")
+      lerp: isSafari ? 0.12 : 0.14,
       smoothWheel: true,
-      syncTouch: false,
+      wheelMultiplier: 1.1,
+      syncTouch: false, // no mobile usa o scroll nativo (mais leve)
     });
 
     let rafId: number;
@@ -41,7 +41,7 @@ export default function SmoothScrollProvider({
       const el = document.querySelector(id);
       if (!el) return;
       e.preventDefault();
-      lenis.scrollTo(el as HTMLElement, { offset: -70, duration: 1.4 });
+      lenis.scrollTo(el as HTMLElement, { offset: -70, duration: 1 });
       history.replaceState(null, "", id);
     };
     document.addEventListener("click", onClick);

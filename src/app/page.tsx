@@ -4,7 +4,8 @@ import Marquee from "@/components/sections/Marquee";
 import Sobre from "@/components/sections/Sobre";
 import Cuidados from "@/components/sections/Cuidados";
 import Diferenciais from "@/components/sections/Diferenciais";
-import Depoimentos from "@/components/sections/Depoimentos";
+// Depoimentos removido temporariamente — será adicionado depois (com relatos reais)
+// import Depoimentos from "@/components/sections/Depoimentos";
 import Regioes from "@/components/sections/Regioes";
 import CTA from "@/components/sections/CTA";
 import Footer from "@/components/sections/Footer";
@@ -20,7 +21,6 @@ export default function Home() {
         <Sobre />
         <Cuidados />
         <Diferenciais />
-        <Depoimentos />
         <Regioes />
         <CTA />
       </main>

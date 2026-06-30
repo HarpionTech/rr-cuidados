@@ -77,7 +77,8 @@ export default function Hero() {
       if (!img || !img.complete || !img.naturalWidth) return;
       const cssW = window.innerWidth;
       const cssH = window.innerHeight;
-      const zoom = isMobile() ? 1.3 : 1;
+      // sem zoom extra no mobile (a filmagem tem 2 pessoas; zoom cortava os rostos)
+      const zoom = isMobile() ? 1.02 : 1;
       const scale = Math.max(cssW / img.naturalWidth, cssH / img.naturalHeight) * zoom;
       const dw = img.naturalWidth * scale;
       const dh = img.naturalHeight * scale;
@@ -132,7 +133,7 @@ export default function Hero() {
   }, [loaded]);
 
   return (
-    <section ref={sectionRef} className="relative h-[360vh] md:h-[420vh]">
+    <section ref={sectionRef} className="relative h-[240vh] md:h-[300vh]">
       {/* preloader (branded) — sai como uma cortina que sobe revelando o hero */}
       <div
         aria-hidden={exiting}

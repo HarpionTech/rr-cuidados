@@ -7,7 +7,6 @@ const links = [
   { href: "#sobre", label: "Sobre" },
   { href: "#cuidados", label: "Cuidados" },
   { href: "#diferenciais", label: "Por que nós" },
-  { href: "#depoimentos", label: "Depoimentos" },
   { href: "#regioes", label: "Regiões" },
 ];
 
