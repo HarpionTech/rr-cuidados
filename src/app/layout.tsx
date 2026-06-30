@@ -23,11 +23,11 @@ export const metadata: Metadata = {
     "Cuidado humanizado de idosos no conforto do seu lar. Equipe técnica, acolhimento e tranquilidade para sua família na Grande Florianópolis.",
   icons: {
     icon: [
-      { url: `${BASE}/favicon.ico?v=2`, sizes: "any" },
-      { url: `${BASE}/assets/favicon-32.png?v=2`, type: "image/png", sizes: "32x32" },
-      { url: `${BASE}/assets/favicon-16.png?v=2`, type: "image/png", sizes: "16x16" },
+      { url: `${BASE}/assets/favicon-32.png?v=3`, type: "image/png", sizes: "32x32" },
+      { url: `${BASE}/assets/favicon-16.png?v=3`, type: "image/png", sizes: "16x16" },
     ],
-    apple: `${BASE}/assets/apple-touch-icon.png?v=2`,
+    shortcut: `${BASE}/assets/favicon-32.png?v=3`,
+    apple: `${BASE}/assets/apple-touch-icon.png?v=3`,
   },
   openGraph: {
     title: "RR Cuidado Domiciliar — Cuidado que começa em casa",

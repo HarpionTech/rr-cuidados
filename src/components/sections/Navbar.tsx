@@ -36,16 +36,16 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 transition-all duration-500 md:px-[7vw] ${
+        className={`fixed inset-x-0 top-0 z-50 flex items-center justify-between px-5 pt-[env(safe-area-inset-top)] transition-all duration-500 sm:px-6 md:px-[7vw] ${
           scrolled
-            ? "bg-cream/80 py-3 shadow-[0_1px_0_var(--color-line)] backdrop-blur-xl"
-            : "py-5"
+            ? "bg-cream/80 pb-3 shadow-[0_1px_0_var(--color-line)] backdrop-blur-xl"
+            : "pb-4 pt-4"
         }`}
       >
         <a href="#hero" className="flex items-center gap-2" aria-label="RR Cuidado Domiciliar — início">
-          <img src={asset("/assets/logo.png")} alt="RR Cuidado Domiciliar" width={46} height={46} className="h-11 w-11 object-contain drop-shadow-[0_1px_4px_rgba(0,0,0,0.25)]" />
+          <img src={asset("/assets/logo.png")} alt="RR Cuidado Domiciliar" width={46} height={46} className="h-10 w-10 object-contain drop-shadow-[0_1px_4px_rgba(0,0,0,0.25)] sm:h-11 sm:w-11" />
           <span className="flex flex-col leading-none">
-            <strong className={`display-font text-xl ${scrolled ? "text-brand-blue" : "text-white-warm"}`}>RR</strong>
+            <strong className={`display-font text-lg sm:text-xl ${scrolled ? "text-brand-blue" : "text-white-warm"}`}>RR</strong>
             <small className={`mt-0.5 text-[0.62rem] uppercase tracking-[0.18em] ${scrolled ? "text-ink-soft" : "text-white-warm/80"}`}>
               Cuidado Domiciliar
             </small>

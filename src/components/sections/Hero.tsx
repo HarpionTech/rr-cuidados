@@ -64,7 +64,7 @@ export default function Hero() {
     const sizeCanvas = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const cssW = window.innerWidth;
-      const cssH = window.innerHeight;
+      const cssH = canvas.getBoundingClientRect().height;
       canvas.width = Math.round(cssW * dpr);
       canvas.height = Math.round(cssH * dpr);
       canvas.style.width = cssW + "px";
@@ -76,15 +76,14 @@ export default function Hero() {
       const img = imagesRef.current[index];
       if (!img || !img.complete || !img.naturalWidth) return;
       const cssW = window.innerWidth;
-      const cssH = window.innerHeight;
-      // correção móvil para filmagem com 2 pessoas: sem zoom para não cortar rostos
+      const cssH = canvas.getBoundingClientRect().height;
+      // No celular, preserva o centro da cena para manter cuidadora e idosa visíveis.
       const isMobileDevice = cssW <= 768;
-      const zoom = isMobileDevice ? 1 : 1;
       const scale = Math.max(cssW / img.naturalWidth, cssH / img.naturalHeight);
       const dw = img.naturalWidth * scale;
       const dh = img.naturalHeight * scale;
       // alinhamento vertical para mobile: prioriza preservação do enquadramento original
-      const VALIGN = isMobileDevice ? 0.25 : 0.3;
+      const VALIGN = isMobileDevice ? 0.32 : 0.3;
       const dx = (cssW - dw) / 2;
       const dy = (cssH - dh) * VALIGN;
       ctx.clearRect(0, 0, cssW, cssH);
@@ -133,7 +132,7 @@ export default function Hero() {
   }, [loaded]);
 
   return (
-    <section ref={sectionRef} className="relative h-[240vh] md:h-[300vh]">
+    <section ref={sectionRef} className="relative h-[240svh] md:h-[300vh]">
       {/* preloader (branded) — sai como uma cortina que sobe revelando o hero */}
       <div
         aria-hidden={exiting}
@@ -162,41 +161,42 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      <div className="sticky top-0 h-[100svh] min-h-[620px] w-full overflow-hidden md:h-screen md:min-h-0">
         <canvas ref={canvasRef} className="h-full w-full" />
 
         {/* véu pra legibilidade */}
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(10,20,34,0.72)_0%,rgba(10,20,34,0.32)_45%,rgba(10,20,34,0)_72%),linear-gradient(180deg,rgba(10,20,34,0.35)_0%,rgba(10,20,34,0.15)_40%,rgba(10,20,34,0.78)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(10,20,34,0.42)_0%,rgba(10,20,34,0.08)_31%,rgba(10,20,34,0.9)_100%)] md:bg-[linear-gradient(90deg,rgba(10,20,34,0.72)_0%,rgba(10,20,34,0.32)_45%,rgba(10,20,34,0)_72%),linear-gradient(180deg,rgba(10,20,34,0.35)_0%,rgba(10,20,34,0.15)_40%,rgba(10,20,34,0.78)_100%)]" />
 
         {/* intro */}
         <div
           ref={introRef}
-          className="pointer-events-none absolute inset-0 flex flex-col justify-end px-6 pb-16 pt-24 md:px-[7vw] md:pb-24"
+          className="pointer-events-none absolute inset-0 flex flex-col justify-end px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-24 sm:px-6 md:px-[7vw] md:pb-24"
         >
           <div className="pointer-events-auto max-w-3xl text-white-warm">
-            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-leaf">
+            <span className="block max-w-[34ch] text-[0.65rem] font-semibold uppercase leading-relaxed tracking-[0.2em] text-brand-leaf sm:text-xs">
               Cuidado domiciliar de idosos · Grande Florianópolis
             </span>
-            <h1 className="display-font mt-4 text-[clamp(2rem,5.2vw,4.2rem)] font-light leading-[1.02]">
+            <h1 className="display-font mt-3 text-[clamp(1.9rem,9vw,2.55rem)] font-light leading-[1.02] md:mt-4 md:text-[clamp(2rem,5.2vw,4.2rem)]">
               O conforto de estar em{" "}
               <span className="italic text-brand-leaf">casa.</span>
               <br />
               O cuidado de quem ama.
             </h1>
-            <p className="mt-5 max-w-xl text-[clamp(0.95rem,1.3vw,1.1rem)] leading-relaxed text-white-warm/90">
+            <p className="mt-4 max-w-xl text-sm leading-[1.55] text-white-warm/90 sm:text-base md:mt-5 md:text-[clamp(0.95rem,1.3vw,1.1rem)] md:leading-relaxed">
               Acolhemos quem você ama com técnica, presença e ternura — para que
               cada dia seja vivido com dignidade, paz e tranquilidade, no lugar
               mais seguro do mundo: o próprio lar.
             </p>
-            <div className="mt-7 flex flex-wrap gap-4">
+            <div className="mt-5 grid w-full gap-3 sm:flex sm:flex-wrap sm:gap-4 md:mt-7">
               <Button
                 href="https://api.whatsapp.com/send?phone=5548988803583&text=Ol%C3%A1!%20Gostaria%20de%20um%20atendimento."
                 external
                 size="lg"
+                className="w-full justify-center sm:w-auto"
               >
                 Agendar uma conversa
               </Button>
-              <Button href="#cuidados" variant="ghost" size="lg" className="!text-white-warm !border-white-warm/40 hover:!bg-white-warm/10">
+              <Button href="#cuidados" variant="ghost" size="lg" className="w-full justify-center !border-white-warm/40 !text-white-warm hover:!bg-white-warm/10 sm:w-auto">
                 Conhecer os cuidados
               </Button>
             </div>
