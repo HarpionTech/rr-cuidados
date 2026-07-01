@@ -62,7 +62,7 @@ export default function Diferenciais() {
         </RevealText>
         <AnimatedItem as="p" className="mt-6 max-w-[64ch] border-l-2 border-brand-leaf pl-5 text-lg leading-relaxed text-ink-soft">
           A{" "}
-          <strong className="font-semibold text-brand-blue">RR Cuidados</strong>{" "}
+          <strong className="font-semibold text-brand-green">RR Cuidados</strong>{" "}
           oferece supervisão continuada por meio de uma equipe técnica com quatro
           anos de experiência na prestação de cuidados em home care, garantindo
           acompanhamento qualificado, segurança e excelência no atendimento aos
