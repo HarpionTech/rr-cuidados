@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { asset } from "@/lib/asset";
 
 const links = [
-  { href: "#sobre", label: "Sobre" },
+  { href: "#sobre", label: "Quem somos" },
   { href: "#cuidados", label: "Cuidados" },
-  { href: "#diferenciais", label: "Por que nós" },
+  { href: "#diferenciais", label: "Nosso diferencial" },
   { href: "#regioes", label: "Regiões" },
 ];
 

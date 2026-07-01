@@ -282,10 +282,7 @@ export default function Hero() {
           className="pointer-events-none absolute inset-0 flex flex-col justify-end px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-24 sm:px-6 md:px-[7vw] md:pb-24"
         >
           <div className="pointer-events-auto max-w-3xl text-white-warm">
-            <span className="block max-w-[34ch] text-[0.65rem] font-semibold uppercase leading-relaxed tracking-[0.2em] text-brand-leaf sm:text-xs">
-              Cuidado domiciliar de idosos · Grande Florianópolis
-            </span>
-            <h1 className="display-font mt-3 text-[clamp(1.9rem,9vw,2.55rem)] font-light leading-[1.02] md:mt-4 md:text-[clamp(2rem,5.2vw,4.2rem)]">
+            <h1 className="display-font text-[clamp(1.9rem,9vw,2.55rem)] font-light leading-[1.02] md:text-[clamp(2rem,5.2vw,4.2rem)]">
               O conforto de estar em{" "}
               <span className="italic text-brand-leaf">casa.</span>
               <br />

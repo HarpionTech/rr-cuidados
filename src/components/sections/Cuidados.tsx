@@ -3,7 +3,7 @@ import AnimatedItem from "@/components/ui/AnimatedItem";
 import RevealText from "@/components/ui/RevealText";
 
 const cards = [
-  { n: "01", t: "Cuidador de idosos", d: "Acompanhamento integral nas atividades do dia a dia, com paciência e atenção contínua a cada necessidade." },
+  { n: "01", t: "Cuidador de pessoas", d: "Acompanhamento integral nas atividades do dia a dia, com paciência e atenção contínua a cada necessidade." },
   { n: "02", t: "Administração de medicação", d: "Controle responsável de horários e doses, seguindo rigorosamente a prescrição médica." },
   { n: "03", t: "Higiene e conforto", d: "Banho, troca e cuidados pessoais conduzidos com respeito, discrição e total preservação da dignidade." },
   { n: "04", t: "Alimentação assistida", d: "Apoio nas refeições e atenção à hidratação, respeitando restrições e o ritmo de cada pessoa." },

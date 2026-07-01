@@ -27,20 +27,18 @@ export default function Sobre() {
             as="h2"
             className="display-font max-w-[16ch] text-[clamp(2rem,4.5vw,3.6rem)] font-normal"
           >
-            Cuidar é um gesto de amor que se faz com{" "}
-            <span className="italic text-brand-blue">responsabilidade</span>.
+            Cuidar é a nossa{" "}
+            <span className="italic text-brand-blue">essência</span>.
           </RevealText>
           <AnimatedItem as="p" className="mt-7 max-w-[54ch] text-lg text-ink-soft">
-            A RR Cuidado Domiciliar nasceu para levar tranquilidade às famílias
-            que desejam o melhor para seus idosos sem abrir mão do conforto e da
-            familiaridade de casa. Unimos o rigor técnico de uma equipe preparada
-            à sensibilidade de quem entende que, por trás de cada cuidado, existe
-            uma história de vida.
+            Nossa missão é oferecer um cuidado humanizado, baseado no amor, na
+            empatia, no respeito e na dedicação.
           </AnimatedItem>
           <AnimatedItem as="p" className="mt-5 max-w-[54ch] text-lg text-ink-soft">
-            Acompanhamos rotinas, medicações, higiene, alimentação e — acima de
-            tudo — oferecemos companhia. Porque envelhecer bem é envelhecer
-            cercado de respeito, paciência e afeto.
+            Trabalhamos para promover qualidade de vida, incentivar a autonomia e
+            proporcionar segurança, conforto e bem-estar, para que cada pessoa se
+            sinta acolhida, valorizada e respeitada, levando tranquilidade às
+            famílias que confiam em nosso cuidado.
           </AnimatedItem>
         </div>
 

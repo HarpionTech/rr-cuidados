@@ -53,19 +53,20 @@ export default function Diferenciais() {
       */}
       <div className="pointer-events-none absolute -right-32 top-16 h-80 w-80 rounded-full bg-brand-leaf/10 blur-3xl" />
 
-      <div className="relative grid items-end gap-7 md:grid-cols-[1.5fr_0.5fr] md:gap-14">
+      <div className="relative max-w-3xl">
         <RevealText
           as="h2"
-          className="display-font max-w-[24ch] text-[clamp(2rem,4vw,3.25rem)] font-normal leading-[1.06]"
+          className="display-font text-[clamp(2rem,4vw,3.25rem)] font-normal leading-[1.06]"
         >
-          <span className="block">Tranquilidade para a família.</span>
-          <span className="block italic text-brand-blue">
-            Dignidade para quem é cuidado.
-          </span>
+          Nosso <span className="italic text-brand-blue">diferencial</span>
         </RevealText>
-        <AnimatedItem as="p" className="max-w-[38ch] border-l-2 border-brand-leaf pl-5 text-base leading-relaxed text-ink-soft md:mb-1">
-          Quatro compromissos que sustentam cada visita — para você confiar de
-          olhos fechados.
+        <AnimatedItem as="p" className="mt-6 max-w-[64ch] border-l-2 border-brand-leaf pl-5 text-lg leading-relaxed text-ink-soft">
+          A{" "}
+          <strong className="font-semibold text-brand-blue">RR Cuidados</strong>{" "}
+          oferece supervisão continuada por meio de uma equipe técnica com quatro
+          anos de experiência na prestação de cuidados em home care, garantindo
+          acompanhamento qualificado, segurança e excelência no atendimento aos
+          pacientes.
         </AnimatedItem>
       </div>
 

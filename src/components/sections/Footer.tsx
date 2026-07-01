@@ -22,7 +22,7 @@ export default function Footer() {
       <div className="grid gap-8 py-12 sm:grid-cols-2 md:grid-cols-3">
         <div>
           <h4 className="mb-4 text-xs uppercase tracking-[0.18em] text-brand-leaf">Navegação</h4>
-          {["Sobre", "Cuidados", "Por que nós", "Regiões"].map((l, i) => (
+          {["Quem somos", "Cuidados", "Nosso diferencial", "Regiões"].map((l, i) => (
             <a
               key={i}
               href={`#${["sobre", "cuidados", "diferenciais", "regioes"][i]}`}

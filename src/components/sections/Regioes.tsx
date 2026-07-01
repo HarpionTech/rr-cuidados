@@ -9,6 +9,8 @@ const cidades = [
   "Biguaçu",
   "Santo Amaro da Imperatriz",
   "Governador Celso Ramos",
+  "Itapema",
+  "Balneário Camboriú",
 ];
 
 const WHATSAPP = "5548988803583";
@@ -30,9 +32,9 @@ export default function Regioes() {
       */}
       <RevealText
         as="h2"
-        className="display-font mt-4 text-[clamp(2rem,4.5vw,3.6rem)] font-normal"
+        className="display-font mt-4 max-w-[20ch] text-[clamp(2rem,4.5vw,3.6rem)] font-normal"
       >
-        Atendemos a Grande Florianópolis
+        Atendemos toda a Grande Florianópolis, Itapema e Balneário Camboriú
       </RevealText>
 
       <AnimatedItem as="p" className="mt-4 max-w-[52ch] text-ink-soft">
