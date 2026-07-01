@@ -8,6 +8,7 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import AnimatedItem from "@/components/ui/AnimatedItem";
 import RevealText from "@/components/ui/RevealText";
 import ScrollAccentLine from "@/components/ui/ScrollAccentLine";
+import ParallaxItem from "@/components/ui/ParallaxItem";
 
 const items = [
   {
@@ -72,31 +73,29 @@ export default function Diferenciais() {
 
       <div className="relative mt-11 grid gap-4 sm:grid-cols-2 md:mt-14 md:gap-5">
         {items.map((it, i) => (
-          <AnimatedItem
-            key={it.k}
-            variant="card"
-            delay={(i % 2) * 0.1}
-            className="group relative grid grid-cols-[auto_1fr] items-start gap-5 overflow-hidden rounded-[22px] border border-line/90 bg-white-warm p-6 shadow-[var(--card-shadow)] transition-all duration-500 hover:-translate-y-1 hover:border-brand-blue/20 hover:shadow-[var(--card-shadow-hover)] md:p-7"
-          >
-            <ScrollAccentLine
-              className={it.accent}
-              delay={i * 0.08}
-            />
+          <ParallaxItem key={it.k} speed={14 + (i % 2) * 12} className="h-full">
+            <AnimatedItem
+              variant="card"
+              delay={(i % 2) * 0.1}
+              className="group relative grid h-full grid-cols-[auto_1fr] items-start gap-5 overflow-hidden rounded-[22px] border border-line/90 bg-white-warm p-6 shadow-[var(--card-shadow)] transition-all duration-500 hover:-translate-y-1 hover:border-brand-blue/20 hover:shadow-[var(--card-shadow-hover)] active:scale-[0.985] max-lg:group-data-[focus=true]/focus:-translate-y-1 max-lg:group-data-[focus=true]/focus:border-brand-blue/20 max-lg:group-data-[focus=true]/focus:shadow-[var(--card-shadow-hover)] md:p-7"
+            >
+              <ScrollAccentLine className={it.accent} delay={i * 0.08} />
 
-            <span className="grid h-13 w-13 shrink-0 place-items-center rounded-2xl bg-brand-blue/[0.08] text-brand-blue transition-all duration-500 group-hover:-rotate-3 group-hover:bg-brand-blue group-hover:text-white-warm md:h-14 md:w-14">
-              <it.Icon size={27} weight="duotone" />
-            </span>
-            <span className="display-font absolute right-6 top-5 text-2xl italic text-brand-blue/15 transition-colors duration-500 group-hover:text-brand-blue/30">
-              {it.n}
-            </span>
+              <span className="grid h-13 w-13 shrink-0 place-items-center rounded-2xl bg-brand-blue/[0.08] text-brand-blue transition-all duration-500 group-hover:-rotate-3 group-hover:bg-brand-blue group-hover:text-white-warm max-lg:group-data-[focus=true]/focus:bg-brand-blue max-lg:group-data-[focus=true]/focus:text-white-warm md:h-14 md:w-14">
+                <it.Icon size={27} weight="duotone" />
+              </span>
+              <span className="display-font absolute right-6 top-5 text-2xl italic text-brand-blue/15 transition-colors duration-500 group-hover:text-brand-blue/30">
+                {it.n}
+              </span>
 
-            <div className="min-w-0 pr-7">
-              <h3 className="display-font text-[1.45rem] font-medium leading-tight text-brand-blue md:text-[1.6rem]">
-                {it.k}
-              </h3>
-              <p className="mt-2 max-w-[46ch] text-[0.95rem] leading-relaxed text-ink-soft">{it.d}</p>
-            </div>
-          </AnimatedItem>
+              <div className="min-w-0 pr-7">
+                <h3 className="display-font text-[1.45rem] font-medium leading-tight text-brand-blue md:text-[1.6rem]">
+                  {it.k}
+                </h3>
+                <p className="mt-2 max-w-[46ch] text-[0.95rem] leading-relaxed text-ink-soft">{it.d}</p>
+              </div>
+            </AnimatedItem>
+          </ParallaxItem>
         ))}
       </div>
     </AnimatedSection>

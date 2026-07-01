@@ -1,6 +1,7 @@
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import AnimatedItem from "@/components/ui/AnimatedItem";
 import RevealText from "@/components/ui/RevealText";
+import ParallaxItem from "@/components/ui/ParallaxItem";
 
 const cards = [
   { n: "01", t: "Cuidador de pessoas", d: "Acompanhamento integral nas atividades do dia a dia, com paciência e atenção contínua a cada necessidade." },
@@ -32,19 +33,20 @@ export default function Cuidados() {
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((c, i) => (
-            <AnimatedItem
-              key={c.n}
-              variant="card"
-              delay={(i % 3) * 0.1}
-              className="group relative overflow-hidden rounded-[20px] border border-line bg-white-warm p-8 shadow-[var(--card-shadow)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[var(--card-shadow-hover)]"
-            >
-              <span className="absolute left-0 top-0 h-[3px] w-0 bg-gradient-to-r from-brand-azure to-brand-leaf transition-all duration-500 group-hover:w-full" />
-              <span className="display-font text-lg italic text-brand-orange">
-                {c.n}
-              </span>
-              <h3 className="display-font mt-3 text-2xl font-medium">{c.t}</h3>
-              <p className="mt-3 text-ink-soft">{c.d}</p>
-            </AnimatedItem>
+            <ParallaxItem key={c.n} speed={16 + (i % 3) * 8} className="h-full">
+              <AnimatedItem
+                variant="card"
+                delay={(i % 3) * 0.1}
+                className="group relative h-full overflow-hidden rounded-[20px] border border-line bg-white-warm p-8 shadow-[var(--card-shadow)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[var(--card-shadow-hover)] active:scale-[0.985] max-lg:group-data-[focus=true]/focus:-translate-y-1.5 max-lg:group-data-[focus=true]/focus:border-brand-blue/20 max-lg:group-data-[focus=true]/focus:shadow-[var(--card-shadow-hover)]"
+              >
+                <span className="absolute left-0 top-0 h-[3px] w-0 bg-gradient-to-r from-brand-azure to-brand-leaf transition-all duration-500 group-hover:w-full max-lg:group-data-[focus=true]/focus:w-full" />
+                <span className="display-font text-lg italic text-brand-orange">
+                  {c.n}
+                </span>
+                <h3 className="display-font mt-3 text-2xl font-medium">{c.t}</h3>
+                <p className="mt-3 text-ink-soft">{c.d}</p>
+              </AnimatedItem>
+            </ParallaxItem>
           ))}
         </div>
       </AnimatedSection>
