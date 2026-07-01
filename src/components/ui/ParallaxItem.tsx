@@ -6,14 +6,12 @@ import type { ReactNode } from "react";
 
 /**
  * Wrapper de card:
- * - Desktop (mouse): parallax vertical — desloca levemente o card no eixo Y
- *   conforme a página rola, dando profundidade.
- * - Touch (celular/tablet): NÃO aplica transform ligado ao scroll (isso deixava
- *   os cards invisíveis/pulando). A entrada dos cards fica por conta do
- *   AnimatedItem (slide da esquerda via whileInView), que é confiável.
+ * - Desktop (mouse): parallax vertical sutil (profundidade), ligado ao scroll.
+ * - Celular/tablet (touch): NENHUM efeito ligado ao scroll (deixava o scroll
+ *   pesado). A entrada dos cards fica por conta do AnimatedItem — um slide leve
+ *   da esquerda que dispara uma vez, via IntersectionObserver.
  *
- * Em ambos, quando o card chega ao centro da tela recebe data-focus="true";
- * os filhos reagem via `group-data-[focus=true]/focus:` (só em < lg).
+ * Em ambos, quando o card chega ao centro da tela recebe data-focus="true".
  */
 export default function ParallaxItem({
   children,
@@ -32,7 +30,7 @@ export default function ParallaxItem({
   });
   const y = useTransform(scrollYProgress, [0, 1], [speed, -speed]);
 
-  // Parallax só no desktop com mouse (scroll suave). No touch fica estático.
+  // Parallax só no desktop com mouse. No touch fica estático (scroll liso).
   const [parallax, setParallax] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
