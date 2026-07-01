@@ -36,7 +36,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 flex items-center justify-between px-5 pt-[env(safe-area-inset-top)] transition-all duration-500 sm:px-6 md:px-[7vw] ${
+        className={`fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-4 px-5 pt-[env(safe-area-inset-top)] transition-all duration-500 sm:px-6 md:px-8 lg:px-10 xl:px-[7vw] ${
           scrolled
             ? "bg-cream/95 pb-3 shadow-[0_1px_0_var(--color-line)] md:bg-cream/80 md:backdrop-blur-xl"
             : "pb-4 pt-4"
@@ -52,12 +52,12 @@ export default function Navbar() {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="hidden items-center gap-5 lg:flex xl:gap-8">
           {links.map((l) => (
             <button
               key={l.href}
               onClick={() => go(l.href)}
-              className={`group relative text-sm font-medium transition-colors ${
+              className={`group relative whitespace-nowrap text-sm font-medium transition-colors ${
                 scrolled
                   ? "text-ink-soft hover:text-brand-blue"
                   : "text-white-warm/90 hover:text-white-warm"
@@ -77,7 +77,7 @@ export default function Navbar() {
           href="https://api.whatsapp.com/send?phone=5548988803583&text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais."
           target="_blank"
           rel="noopener"
-          className="hidden rounded-full bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white-warm transition-colors hover:bg-brand-orange lg:inline-block"
+          className="hidden whitespace-nowrap rounded-full bg-brand-blue px-4 py-2.5 text-sm font-semibold text-white-warm transition-colors hover:bg-brand-orange lg:inline-block xl:px-5"
         >
           Fale conosco
         </a>

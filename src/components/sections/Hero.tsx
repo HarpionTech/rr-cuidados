@@ -112,32 +112,40 @@ export default function Hero() {
       if (!img || !img.complete || !img.naturalWidth) return;
       const cssW = window.innerWidth;
       const cssH = canvas.getBoundingClientRect().height;
-      const isMobileDevice = cssW <= 768;
+      // Só o retrato de celular usa o tratamento especial. Tablet (>=768, mesmo
+      // breakpoint do resto do layout) usa o "cover" do desktop, sem faixa cinza.
+      const isMobileDevice = cssW < 768;
 
       ctx.clearRect(0, 0, cssW, cssH);
 
       if (isMobileDevice) {
-        // O material original é 16:9. No retrato, uma base ampliada e desfocada
-        // preenche a tela enquanto o plano nítido usa um recorte mais aberto.
-        const bgScale = Math.max(cssW / img.naturalWidth, cssH / img.naturalHeight);
+        // O material original é 16:9. No retrato, uma base desfocada preenche a
+        // tela inteira como um fundo fotográfico (não uma faixa cinza chapada),
+        // enquanto o plano nítido usa um recorte mais aberto por cima.
+        const bgScale =
+          Math.max(cssW / img.naturalWidth, cssH / img.naturalHeight) * 1.14;
         const bgW = img.naturalWidth * bgScale;
         const bgH = img.naturalHeight * bgScale;
 
         ctx.save();
-        ctx.globalAlpha = 0.72;
+        ctx.filter = "blur(26px)";
         ctx.drawImage(
           img,
           (cssW - bgW) / 2,
-          (cssH - bgH) * 0.32,
+          (cssH - bgH) * 0.3,
           bgW,
           bgH
         );
         ctx.restore();
 
-        const subjectScale = (cssW * 1.58) / img.naturalWidth;
+        // escurece o fundo desfocado pra coesão e leitura
+        ctx.fillStyle = "rgba(10,20,34,0.46)";
+        ctx.fillRect(0, 0, cssW, cssH);
+
+        const subjectScale = (cssW * 1.5) / img.naturalWidth;
         const subjectW = img.naturalWidth * subjectScale;
         const subjectH = img.naturalHeight * subjectScale;
-        const subjectY = Math.max(72, cssH * 0.08);
+        const subjectY = Math.max(64, cssH * 0.06);
 
         ctx.drawImage(
           img,
@@ -147,10 +155,11 @@ export default function Hero() {
           subjectH
         );
 
+        // funde a base do plano nítido no fundo, sem corte seco
         const blend = ctx.createLinearGradient(0, subjectY, 0, subjectY + subjectH);
-        blend.addColorStop(0, "rgba(10,20,34,0.16)");
-        blend.addColorStop(0.72, "rgba(10,20,34,0.08)");
-        blend.addColorStop(1, "rgba(10,20,34,0.92)");
+        blend.addColorStop(0, "rgba(10,20,34,0)");
+        blend.addColorStop(0.68, "rgba(10,20,34,0)");
+        blend.addColorStop(1, "rgba(10,20,34,0.9)");
         ctx.fillStyle = blend;
         ctx.fillRect(0, subjectY, cssW, subjectH + 2);
         return;
