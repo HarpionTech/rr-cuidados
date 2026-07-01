@@ -10,14 +10,18 @@ import {
 import type { ReactNode } from "react";
 
 /**
- * Wrapper de card com:
- * - Parallax: desloca levemente o card no eixo Y conforme a página rola (profundidade).
- * - Foco no centro: quando o card chega ao centro da tela, recebe data-focus="true".
- *   Os filhos reagem via `group-data-[focus=true]/focus:` (usado só em telas < lg,
- *   pra dar o "hover do dedo" no mobile/tablet — no desktop o hover normal cuida).
+ * Wrapper de card com dois comportamentos, conforme o dispositivo:
  *
- * O elemento externo (ref) é estável; o transform do parallax fica no filho,
- * evitando feedback na medição de scroll/intersection.
+ * - Desktop (mouse): parallax vertical — desloca levemente o card no eixo Y
+ *   conforme a página rola, dando profundidade.
+ * - Celular/tablet (touch): entrada/saída fluida ligada ao scroll — o card
+ *   entra deslizando da esquerda e, quando a seção começa a sair por cima,
+ *   desliza pra direita e some. Substitui o parallax, que ficava "picado"
+ *   no scroll nativo.
+ *
+ * Em ambos, quando o card chega ao centro da tela recebe data-focus="true";
+ * os filhos reagem via `group-data-[focus=true]/focus:` (usado só em < lg,
+ * pra dar o "hover do dedo" no mobile/tablet).
  */
 export default function ParallaxItem({
   children,
@@ -34,17 +38,25 @@ export default function ParallaxItem({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [speed, -speed]);
 
-  // Parallax só onde o scroll é suave (desktop com mouse). No touch o scroll é
-  // nativo e "picado", o que causava o pulo dos cards na primeira passada.
-  const [parallax, setParallax] = useState(false);
+  // Desktop: parallax vertical.
+  const y = useTransform(scrollYProgress, [0, 1], [speed, -speed]);
+  // Touch: desliza da esquerda ao entrar e pra direita ao sair.
+  const x = useTransform(scrollYProgress, [0, 0.28, 0.72, 1], [-72, 0, 0, 72]);
+  const slideOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.22, 0.8, 1],
+    [0, 1, 1, 0]
+  );
+
+  // "desktop" = scroll suave com mouse · "touch" = celular/tablet.
+  const [mode, setMode] = useState<"none" | "desktop" | "touch">("none");
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
-    const update = () => setParallax(mq.matches);
+    const desk = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
+    const update = () => setMode(desk.matches ? "desktop" : "touch");
     update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
+    desk.addEventListener("change", update);
+    return () => desk.removeEventListener("change", update);
   }, []);
 
   useEffect(() => {
@@ -63,12 +75,16 @@ export default function ParallaxItem({
     return () => io.disconnect();
   }, []);
 
+  const style =
+    reduce || mode === "none"
+      ? undefined
+      : mode === "desktop"
+        ? { y }
+        : { x, opacity: slideOpacity };
+
   return (
     <div ref={ref} data-focus="false" className={`group/focus ${className ?? ""}`}>
-      <motion.div
-        style={parallax && !reduce ? { y } : undefined}
-        className="h-full will-change-transform"
-      >
+      <motion.div style={style} className="h-full will-change-transform">
         {children}
       </motion.div>
     </div>
