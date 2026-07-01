@@ -36,6 +36,7 @@ export default function Cuidados() {
             <ParallaxItem key={c.n} speed={16 + (i % 3) * 8} className="h-full">
               <AnimatedItem
                 variant="card"
+                settleOnTouch
                 delay={(i % 3) * 0.1}
                 className="group relative h-full overflow-hidden rounded-[20px] border border-line bg-white-warm p-8 shadow-[var(--card-shadow)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[var(--card-shadow-hover)] active:scale-[0.985] max-lg:group-data-[focus=true]/focus:-translate-y-1.5 max-lg:group-data-[focus=true]/focus:border-brand-blue/20 max-lg:group-data-[focus=true]/focus:shadow-[var(--card-shadow-hover)]"
               >

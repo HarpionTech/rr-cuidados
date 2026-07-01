@@ -4,7 +4,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="bg-ink px-6 pb-28 pt-16 text-white-warm/80 md:px-[7vw] md:pb-8">
-      <div className="flex flex-wrap items-center justify-between gap-6 border-b border-white/10 pb-10">
+      <div className="flex flex-wrap items-center justify-center gap-6 border-b border-white/10 pb-10 text-center sm:justify-between sm:text-left">
         <a href="#hero" className="flex items-center gap-3">
           <img src={asset("/assets/logo.png")} alt="RR Cuidado Domiciliar" width={50} height={50} className="h-12 w-12 object-contain" />
           <span className="flex flex-col leading-none">
@@ -19,7 +19,7 @@ export default function Footer() {
         </p>
       </div>
 
-      <div className="grid gap-8 py-12 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid gap-8 py-12 text-center sm:grid-cols-2 sm:text-left md:grid-cols-3">
         <div>
           <h4 className="mb-4 text-xs uppercase tracking-[0.18em] text-brand-leaf">Navegação</h4>
           {["Quem somos", "Cuidados", "Nosso diferencial", "Regiões"].map((l, i) => (
@@ -48,7 +48,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-between gap-3 border-t border-white/10 pt-7 text-xs text-white-warm/45">
+      <div className="flex flex-wrap justify-center gap-3 border-t border-white/10 pt-7 text-center text-xs text-white-warm/45 sm:justify-between sm:text-left">
         <span>© {year} RR Cuidado Domiciliar. Todos os direitos reservados.</span>
         <span>Feito com cuidado.</span>
       </div>

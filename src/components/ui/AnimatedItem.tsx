@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -11,6 +12,7 @@ export default function AnimatedItem({
   as = "div",
   delay = 0,
   variant = "soft",
+  settleOnTouch = false,
 }: {
   children: ReactNode;
   className?: string;
@@ -18,9 +20,28 @@ export default function AnimatedItem({
   delay?: number;
   /** soft = blur + rise · card = blur + rise + leve escala */
   variant?: "soft" | "card";
+  /** No touch, não anima sozinho — deixa o pai (ex.: ParallaxItem) controlar
+   * o movimento, evitando o "pulo" de duas animações simultâneas. */
+  settleOnTouch?: boolean;
 }) {
   const reduceMotion = useReducedMotion();
   const MotionTag = motion[as];
+
+  const [touch, setTouch] = useState(false);
+  useEffect(() => {
+    if (!settleOnTouch) return;
+    const mq = window.matchMedia("(max-width: 1023px), (pointer: coarse)");
+    const update = () => setTouch(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, [settleOnTouch]);
+
+  // No touch com movimento delegado ao pai: renderiza estático (visível).
+  if (settleOnTouch && touch) {
+    return <MotionTag className={className}>{children}</MotionTag>;
+  }
+
   const hidden = reduceMotion
     ? { opacity: 0 }
     :
