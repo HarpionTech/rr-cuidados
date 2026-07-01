@@ -1,27 +1,19 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-} from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
 /**
- * Wrapper de card com dois comportamentos, conforme o dispositivo:
- *
+ * Wrapper de card:
  * - Desktop (mouse): parallax vertical — desloca levemente o card no eixo Y
  *   conforme a página rola, dando profundidade.
- * - Celular/tablet (touch): entrada/saída fluida ligada ao scroll — o card
- *   entra deslizando da esquerda e, quando a seção começa a sair por cima,
- *   desliza pra direita e some. Substitui o parallax, que ficava "picado"
- *   no scroll nativo.
+ * - Touch (celular/tablet): NÃO aplica transform ligado ao scroll (isso deixava
+ *   os cards invisíveis/pulando). A entrada dos cards fica por conta do
+ *   AnimatedItem (slide da esquerda via whileInView), que é confiável.
  *
  * Em ambos, quando o card chega ao centro da tela recebe data-focus="true";
- * os filhos reagem via `group-data-[focus=true]/focus:` (usado só em < lg,
- * pra dar o "hover do dedo" no mobile/tablet).
+ * os filhos reagem via `group-data-[focus=true]/focus:` (só em < lg).
  */
 export default function ParallaxItem({
   children,
@@ -38,25 +30,16 @@ export default function ParallaxItem({
     target: ref,
     offset: ["start end", "end start"],
   });
-
-  // Desktop: parallax vertical.
   const y = useTransform(scrollYProgress, [0, 1], [speed, -speed]);
-  // Touch: desliza da esquerda ao entrar e pra direita ao sair.
-  const x = useTransform(scrollYProgress, [0, 0.28, 0.72, 1], [-72, 0, 0, 72]);
-  const slideOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.22, 0.8, 1],
-    [0, 1, 1, 0]
-  );
 
-  // "desktop" = scroll suave com mouse · "touch" = celular/tablet.
-  const [mode, setMode] = useState<"none" | "desktop" | "touch">("none");
+  // Parallax só no desktop com mouse (scroll suave). No touch fica estático.
+  const [parallax, setParallax] = useState(false);
   useEffect(() => {
-    const desk = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
-    const update = () => setMode(desk.matches ? "desktop" : "touch");
+    const mq = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
+    const update = () => setParallax(mq.matches);
     update();
-    desk.addEventListener("change", update);
-    return () => desk.removeEventListener("change", update);
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
   }, []);
 
   useEffect(() => {
@@ -75,16 +58,12 @@ export default function ParallaxItem({
     return () => io.disconnect();
   }, []);
 
-  const style =
-    reduce || mode === "none"
-      ? undefined
-      : mode === "desktop"
-        ? { y }
-        : { x, opacity: slideOpacity };
-
   return (
     <div ref={ref} data-focus="false" className={`group/focus ${className ?? ""}`}>
-      <motion.div style={style} className="h-full will-change-transform">
+      <motion.div
+        style={parallax && !reduce ? { y } : undefined}
+        className="h-full will-change-transform"
+      >
         {children}
       </motion.div>
     </div>

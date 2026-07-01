@@ -3,32 +3,44 @@
 import { useEffect, useState } from "react";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 
-// Seções onde o botão flutuante deve aparecer: de "Quem somos" até "Regiões".
-// Fora dessa faixa (hero e contato/rodapé) ele some pra não poluir a página.
-const SECTIONS = ["sobre", "cuidados", "diferenciais", "regioes"];
-
+/**
+ * Botão flutuante do WhatsApp: aparece só depois que "Quem somos" (#sobre)
+ * começa a entrar e some assim que a seção de contato (#contato) começa a
+ * aparecer — antes dela, portanto, o ícone já está oculto.
+ */
 export default function WhatsAppFloat() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const els = SECTIONS.map((id) => document.getElementById(id)).filter(
-      (el): el is HTMLElement => el !== null
-    );
-    if (els.length === 0) return;
+    let ticking = false;
 
-    const shown = new Set<Element>();
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) shown.add(e.target);
-          else shown.delete(e.target);
-        }
-        setVisible(shown.size > 0);
-      },
-      { rootMargin: "-15% 0px -15% 0px", threshold: 0 }
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+    const compute = () => {
+      ticking = false;
+      const sobre = document.getElementById("sobre");
+      const contato = document.getElementById("contato");
+      const vh = window.innerHeight;
+      const sobreTop = sobre ? sobre.getBoundingClientRect().top : Infinity;
+      const contatoTop = contato ? contato.getBoundingClientRect().top : Infinity;
+      // já entrou em "Quem somos" e a seção de contato ainda não começou a surgir
+      const started = sobreTop <= vh * 0.75;
+      const contatoAppearing = contatoTop <= vh * 0.95;
+      setVisible(started && !contatoAppearing);
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(compute);
+      }
+    };
+
+    compute();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   return (

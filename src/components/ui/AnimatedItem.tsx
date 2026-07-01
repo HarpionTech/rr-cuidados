@@ -12,45 +12,38 @@ export default function AnimatedItem({
   as = "div",
   delay = 0,
   variant = "soft",
-  settleOnTouch = false,
 }: {
   children: ReactNode;
   className?: string;
   as?: "div" | "li" | "h2" | "p" | "span" | "figure";
   delay?: number;
-  /** soft = blur + rise · card = blur + rise + leve escala */
+  /** soft = blur + rise · card = rise (desktop) / slide lateral (touch) */
   variant?: "soft" | "card";
-  /** No touch, não anima sozinho — deixa o pai (ex.: ParallaxItem) controlar
-   * o movimento, evitando o "pulo" de duas animações simultâneas. */
-  settleOnTouch?: boolean;
 }) {
   const reduceMotion = useReducedMotion();
   const MotionTag = motion[as];
 
+  // No touch, os cards entram deslizando da esquerda (o parallax fica desligado
+  // lá, então esta é a única animação — sem pulo e sem sumir).
   const [touch, setTouch] = useState(false);
   useEffect(() => {
-    if (!settleOnTouch) return;
     const mq = window.matchMedia("(max-width: 1023px), (pointer: coarse)");
     const update = () => setTouch(mq.matches);
     update();
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
-  }, [settleOnTouch]);
-
-  // No touch com movimento delegado ao pai: renderiza estático (visível).
-  if (settleOnTouch && touch) {
-    return <MotionTag className={className}>{children}</MotionTag>;
-  }
+  }, []);
 
   const hidden = reduceMotion
     ? { opacity: 0 }
-    :
-    variant === "card"
-      ? { opacity: 0, y: 36, scale: 0.975 }
+    : variant === "card"
+      ? touch
+        ? { opacity: 0, x: -48 }
+        : { opacity: 0, y: 36, scale: 0.975 }
       : { opacity: 0, y: 30 };
   const show =
     variant === "card"
-      ? { opacity: 1, y: 0, scale: 1 }
+      ? { opacity: 1, x: 0, y: 0, scale: 1 }
       : { opacity: 1, y: 0 };
 
   return (

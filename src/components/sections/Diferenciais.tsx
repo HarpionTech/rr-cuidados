@@ -76,7 +76,6 @@ export default function Diferenciais() {
           <ParallaxItem key={it.k} speed={14 + (i % 2) * 12} className="h-full">
             <AnimatedItem
               variant="card"
-              settleOnTouch
               delay={(i % 2) * 0.1}
               className="group relative grid h-full grid-cols-[auto_1fr] items-start gap-5 overflow-hidden rounded-[22px] border border-line/90 bg-white-warm p-6 shadow-[var(--card-shadow)] transition-all duration-500 hover:-translate-y-1 hover:border-brand-blue/20 hover:shadow-[var(--card-shadow-hover)] active:scale-[0.985] max-lg:group-data-[focus=true]/focus:-translate-y-1 max-lg:group-data-[focus=true]/focus:border-brand-blue/20 max-lg:group-data-[focus=true]/focus:shadow-[var(--card-shadow-hover)] md:p-7"
             >

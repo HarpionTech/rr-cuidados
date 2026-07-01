@@ -112,9 +112,10 @@ export default function Hero() {
       if (!img || !img.complete || !img.naturalWidth) return;
       const cssW = window.innerWidth;
       const cssH = canvas.getBoundingClientRect().height;
-      // Só o retrato de celular usa o tratamento especial. Tablet (>=768, mesmo
-      // breakpoint do resto do layout) usa o "cover" do desktop, sem faixa cinza.
-      const isMobileDevice = cssW < 768;
+      // Qualquer tela em retrato (celular e tablet em pé) usa o fundo desfocado
+      // + plano nítido por cima. Em paisagem (desktop e tablet deitado) o "cover"
+      // preenche a tela naturalmente.
+      const isMobileDevice = cssH > cssW;
 
       ctx.clearRect(0, 0, cssW, cssH);
 
@@ -283,7 +284,7 @@ export default function Hero() {
         <canvas ref={canvasRef} className="h-full w-full translate-z-0 [will-change:contents]" />
 
         {/* véu pra legibilidade */}
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(10,20,34,0.35)_0%,rgba(10,20,34,0.02)_34%,rgba(10,20,34,0.38)_55%,rgba(10,20,34,0.94)_82%)] md:bg-[linear-gradient(90deg,rgba(10,20,34,0.72)_0%,rgba(10,20,34,0.32)_45%,rgba(10,20,34,0)_72%),linear-gradient(180deg,rgba(10,20,34,0.35)_0%,rgba(10,20,34,0.15)_40%,rgba(10,20,34,0.78)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(10,20,34,0.35)_0%,rgba(10,20,34,0.02)_34%,rgba(10,20,34,0.38)_55%,rgba(10,20,34,0.94)_82%)] landscape:bg-[linear-gradient(90deg,rgba(10,20,34,0.72)_0%,rgba(10,20,34,0.32)_45%,rgba(10,20,34,0)_72%),linear-gradient(180deg,rgba(10,20,34,0.35)_0%,rgba(10,20,34,0.15)_40%,rgba(10,20,34,0.78)_100%)]" />
 
         {/* intro */}
         <div
