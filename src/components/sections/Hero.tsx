@@ -36,11 +36,11 @@ export default function Hero() {
     let done = 0;
     const imgs: HTMLImageElement[] = new Array(FRAME_COUNT);
     let cancelled = false;
-    // No retrato (onde o fundo desfocado pesa mais) avança em passos de frames
-    // pra reduzir a frequência de redesenho e manter o scroll fluido: tablet ~15
-    // por rolagem, celular ~5. Em paisagem/desktop (cover leve), todos os frames.
+    // Fluidez vem de desenhar quase todos os frames com um desenho LEVE (DPR
+    // baixo no retrato, ver sizeCanvas), não de pular frames. Passo pequeno pra
+    // manter o scrub suave.
     const portrait = window.innerHeight > window.innerWidth;
-    const step = !portrait ? 1 : window.innerWidth >= 768 ? 15 : 5;
+    const step = portrait ? 2 : 1;
     frameStepRef.current = step;
     const frameIndexes = Array.from(
       { length: Math.floor((FRAME_COUNT - 1) / step) + 1 },
@@ -104,7 +104,10 @@ export default function Hero() {
     const sizeCanvas = () => {
       const cssW = window.innerWidth;
       const cssH = canvas.getBoundingClientRect().height;
-      const dprCap = cssW < 640 ? 1 : cssW < 1024 ? 1.25 : 1.75;
+      // No retrato o desenho é mais pesado (fundo desfocado), então limita o DPR
+      // a 1 pra cada frame custar menos e o scroll ficar fluido.
+      const portrait = cssH > cssW;
+      const dprCap = portrait ? 1 : cssW < 1024 ? 1.25 : 1.5;
       const dpr = Math.min(window.devicePixelRatio || 1, dprCap);
       canvas.width = Math.round(cssW * dpr);
       canvas.height = Math.round(cssH * dpr);

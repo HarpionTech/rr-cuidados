@@ -44,6 +44,8 @@
 
 html {
   scroll-behavior: auto;
+  /* clip (nao hidden) impede o arrasto lateral no toque sem quebrar o sticky */
+  overflow-x: clip;
 }
 
 body {
@@ -52,7 +54,7 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
   min-width: 320px;
 }
 

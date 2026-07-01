@@ -29,7 +29,7 @@ export default function ParallaxItem({
     offset: ["start end", "end start"],
   });
   const y = useTransform(scrollYProgress, [0, 1], [speed, -speed]);
-  const x = useTransform(scrollYProgress, [0, 0.32, 0.68, 1], [-64, 0, 0, 64]);
+  const x = useTransform(scrollYProgress, [0, 0.32, 0.68, 1], [-44, 0, 0, 44]);
 
   const [mode, setMode] = useState<"none" | "desktop" | "touch">("none");
   useEffect(() => {
