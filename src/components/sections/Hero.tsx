@@ -36,10 +36,11 @@ export default function Hero() {
     let done = 0;
     const imgs: HTMLImageElement[] = new Array(FRAME_COUNT);
     let cancelled = false;
-    // No touch (celular/tablet) avança em passos de frames pra reduzir a
-    // frequência de redesenho e manter o scroll fluido. No desktop, todos.
-    const coarse = window.matchMedia("(pointer: coarse)").matches;
-    const step = coarse ? 3 : 1;
+    // No retrato (onde o fundo desfocado pesa mais) avança em passos de frames
+    // pra reduzir a frequência de redesenho e manter o scroll fluido: tablet ~15
+    // por rolagem, celular ~5. Em paisagem/desktop (cover leve), todos os frames.
+    const portrait = window.innerHeight > window.innerWidth;
+    const step = !portrait ? 1 : window.innerWidth >= 768 ? 15 : 5;
     frameStepRef.current = step;
     const frameIndexes = Array.from(
       { length: Math.floor((FRAME_COUNT - 1) / step) + 1 },

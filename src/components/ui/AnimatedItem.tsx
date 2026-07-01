@@ -17,38 +17,32 @@ export default function AnimatedItem({
   className?: string;
   as?: "div" | "li" | "h2" | "p" | "span" | "figure";
   delay?: number;
-  /** soft = blur + rise · card = reveal do card */
+  /** soft = blur + rise · card = reveal do card (desktop) */
   variant?: "soft" | "card";
 }) {
   const reduceMotion = useReducedMotion();
   const MotionTag = motion[as];
 
-  const [mode, setMode] = useState<"desktop" | "tablet" | "phone">("desktop");
+  const [desktop, setDesktop] = useState(false);
   useEffect(() => {
-    const deskQ = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
-    const phoneQ = window.matchMedia("(max-width: 767px)");
-    const update = () =>
-      setMode(deskQ.matches ? "desktop" : phoneQ.matches ? "phone" : "tablet");
+    const desk = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
+    const update = () => setDesktop(desk.matches);
     update();
-    deskQ.addEventListener("change", update);
-    phoneQ.addEventListener("change", update);
-    return () => {
-      deskQ.removeEventListener("change", update);
-      phoneQ.removeEventListener("change", update);
-    };
+    desk.addEventListener("change", update);
+    return () => desk.removeEventListener("change", update);
   }, []);
 
-  // No tablet o slide do card é feito pelo ParallaxItem — aqui fica estático.
-  if (variant === "card" && mode === "tablet") {
+  // No touch, o card NÃO anima aqui (nem opacidade) — quem faz o movimento é o
+  // ParallaxItem (slide da esquerda / saída pra direita). Fica sempre visível,
+  // então nunca some (inclusive no F5).
+  if (variant === "card" && !desktop) {
     return <MotionTag className={className}>{children}</MotionTag>;
   }
 
   const hidden = reduceMotion
     ? { opacity: 0 }
     : variant === "card"
-      ? mode === "phone"
-        ? { opacity: 0, y: 20 } // celular: entrada leve, sem parallax
-        : { opacity: 0, y: 36, scale: 0.975 }
+      ? { opacity: 0, y: 36, scale: 0.975 }
       : { opacity: 0, y: 30 };
   const show =
     variant === "card"

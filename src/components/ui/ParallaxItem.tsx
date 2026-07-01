@@ -5,12 +5,11 @@ import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion
 import type { ReactNode } from "react";
 
 /**
- * Wrapper de card, com comportamento por dispositivo:
+ * Wrapper de card:
+ * - Celular/tablet (touch): o card ENTRA deslizando da esquerda e SAI deslizando
+ *   pra direita, ligado ao scroll. Só mexe no eixo X (translate) — a opacidade
+ *   nunca é tocada, então o card jamais some.
  * - Desktop (mouse): parallax vertical sutil.
- * - Tablet: o card ENTRA deslizando da esquerda e SAI pra direita, ligado ao
- *   scroll (nesse tamanho performa bem).
- * - Celular: NENHUM efeito ligado ao scroll (mantém o scroll leve); a entrada
- *   leve dos cards fica por conta do AnimatedItem.
  *
  * Em todos, quando o card chega ao centro da tela recebe data-focus="true".
  */
@@ -30,23 +29,15 @@ export default function ParallaxItem({
     offset: ["start end", "end start"],
   });
   const y = useTransform(scrollYProgress, [0, 1], [speed, -speed]);
-  // slide horizontal: entra da esquerda, passa pelo centro, sai pra direita.
-  // NÃO mexe na opacidade (era isso que fazia o card sumir na tela).
   const x = useTransform(scrollYProgress, [0, 0.32, 0.68, 1], [-64, 0, 0, 64]);
 
-  const [mode, setMode] = useState<"none" | "desktop" | "tablet" | "phone">("none");
+  const [mode, setMode] = useState<"none" | "desktop" | "touch">("none");
   useEffect(() => {
-    const deskQ = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
-    const phoneQ = window.matchMedia("(max-width: 767px)");
-    const update = () =>
-      setMode(deskQ.matches ? "desktop" : phoneQ.matches ? "phone" : "tablet");
+    const desk = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
+    const update = () => setMode(desk.matches ? "desktop" : "touch");
     update();
-    deskQ.addEventListener("change", update);
-    phoneQ.addEventListener("change", update);
-    return () => {
-      deskQ.removeEventListener("change", update);
-      phoneQ.removeEventListener("change", update);
-    };
+    desk.addEventListener("change", update);
+    return () => desk.removeEventListener("change", update);
   }, []);
 
   useEffect(() => {
@@ -69,7 +60,7 @@ export default function ParallaxItem({
     ? undefined
     : mode === "desktop"
       ? { y }
-      : mode === "tablet"
+      : mode === "touch"
         ? { x }
         : undefined;
 
