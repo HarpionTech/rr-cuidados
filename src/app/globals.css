@@ -137,6 +137,51 @@ body::after {
   animation: logo-beat 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
+/* fundo fluido animado (aurora) — CTA. Cores da marca. */
+.cta-fluid {
+  position: absolute;
+  inset: 0;
+  background-color: #00335f;
+  background-image:
+    radial-gradient(60% 55% at 22% 28%, rgba(0, 97, 169, 0.85), transparent 62%),
+    radial-gradient(55% 55% at 80% 20%, rgba(108, 192, 79, 0.7), transparent 60%),
+    radial-gradient(65% 60% at 62% 88%, rgba(20, 110, 70, 0.85), transparent 62%),
+    radial-gradient(55% 55% at 12% 82%, rgba(0, 74, 146, 0.8), transparent 60%);
+  background-size: 200% 200%;
+  animation: fluid-drift 18s ease-in-out infinite;
+}
+.cta-fluid::before {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  background-image:
+    radial-gradient(40% 40% at 50% 45%, rgba(46, 138, 138, 0.6), transparent 60%),
+    radial-gradient(34% 34% at 28% 72%, rgba(108, 192, 79, 0.5), transparent 60%),
+    radial-gradient(38% 38% at 74% 66%, rgba(0, 97, 169, 0.55), transparent 60%);
+  filter: blur(42px);
+  animation: fluid-blob 22s ease-in-out infinite alternate;
+}
+@keyframes fluid-drift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@keyframes fluid-blob {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(6%, -4%) scale(1.15);
+  }
+  100% {
+    transform: translate(-5%, 5%) scale(1.06);
+  }
+}
+
 /* utilitários */
 @utility neu {
   background: var(--color-white-warm);

@@ -8,9 +8,13 @@ export default function CTA() {
   return (
     <AnimatedSection
       id="contato"
-      className="relative overflow-hidden px-6 py-28 text-center text-white-warm md:px-[7vw] md:py-40 bg-[radial-gradient(100%_100%_at_80%_0%,rgba(108,192,79,0.32),transparent_60%),linear-gradient(160deg,#003a73,#004a92_55%,#2c7a30)]"
+      className="relative overflow-hidden bg-[#00335f] px-6 py-28 text-center text-white-warm md:px-[7vw] md:py-40"
     >
-      <div className="mx-auto max-w-3xl">
+      {/* fundo fluido animado (aurora) nas cores da marca */}
+      <div className="cta-fluid" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 bg-ink/15" aria-hidden="true" />
+
+      <div className="relative z-10 mx-auto max-w-3xl">
         <AnimatedItem as="span" className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-leaf">
           Vamos conversar
         </AnimatedItem>
