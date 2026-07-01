@@ -30,8 +30,9 @@ export default function ParallaxItem({
     offset: ["start end", "end start"],
   });
   const y = useTransform(scrollYProgress, [0, 1], [speed, -speed]);
-  const x = useTransform(scrollYProgress, [0, 0.28, 0.72, 1], [-72, 0, 0, 72]);
-  const slideOpacity = useTransform(scrollYProgress, [0, 0.22, 0.8, 1], [0, 1, 1, 0]);
+  // slide horizontal: entra da esquerda, passa pelo centro, sai pra direita.
+  // NÃO mexe na opacidade (era isso que fazia o card sumir na tela).
+  const x = useTransform(scrollYProgress, [0, 0.32, 0.68, 1], [-64, 0, 0, 64]);
 
   const [mode, setMode] = useState<"none" | "desktop" | "tablet" | "phone">("none");
   useEffect(() => {
@@ -69,7 +70,7 @@ export default function ParallaxItem({
     : mode === "desktop"
       ? { y }
       : mode === "tablet"
-        ? { x, opacity: slideOpacity }
+        ? { x }
         : undefined;
 
   return (

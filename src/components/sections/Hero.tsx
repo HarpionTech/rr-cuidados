@@ -36,9 +36,10 @@ export default function Hero() {
     let done = 0;
     const imgs: HTMLImageElement[] = new Array(FRAME_COUNT);
     let cancelled = false;
-    // Todos os dispositivos usam a sequência completa. A velocidade vem do
-    // percurso curto de scroll, não de saltos entre imagens.
-    const step = 1;
+    // No touch (celular/tablet) avança em passos de frames pra reduzir a
+    // frequência de redesenho e manter o scroll fluido. No desktop, todos.
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    const step = coarse ? 3 : 1;
     frameStepRef.current = step;
     const frameIndexes = Array.from(
       { length: Math.floor((FRAME_COUNT - 1) / step) + 1 },
