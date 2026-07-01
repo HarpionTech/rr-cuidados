@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useScroll,
@@ -36,6 +36,17 @@ export default function ParallaxItem({
   });
   const y = useTransform(scrollYProgress, [0, 1], [speed, -speed]);
 
+  // Parallax só onde o scroll é suave (desktop com mouse). No touch o scroll é
+  // nativo e "picado", o que causava o pulo dos cards na primeira passada.
+  const [parallax, setParallax] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
+    const update = () => setParallax(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -55,7 +66,7 @@ export default function ParallaxItem({
   return (
     <div ref={ref} data-focus="false" className={`group/focus ${className ?? ""}`}>
       <motion.div
-        style={reduce ? undefined : { y }}
+        style={parallax && !reduce ? { y } : undefined}
         className="h-full will-change-transform"
       >
         {children}
