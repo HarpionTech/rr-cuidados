@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="bg-ink px-6 pb-28 pt-16 text-white-warm/80 md:px-[7vw] md:pb-8">
       <div className="flex flex-wrap items-center justify-center gap-6 border-b border-white/10 pb-10 text-center sm:justify-between sm:text-left">
-        <a href="#hero" className="flex items-center gap-3">
+        <a href="#hero" className="flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
           <img src={asset("/assets/logo.png")} alt="RR Cuidado Domiciliar" width={50} height={50} className="h-12 w-12 object-contain" />
           <span className="flex flex-col leading-none">
             <strong className="display-font text-xl text-brand-leaf">RR</strong>

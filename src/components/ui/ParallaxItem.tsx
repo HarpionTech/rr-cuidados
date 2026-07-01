@@ -5,13 +5,14 @@ import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion
 import type { ReactNode } from "react";
 
 /**
- * Wrapper de card:
- * - Desktop (mouse): parallax vertical sutil (profundidade), ligado ao scroll.
- * - Celular/tablet (touch): NENHUM efeito ligado ao scroll (deixava o scroll
- *   pesado). A entrada dos cards fica por conta do AnimatedItem — um slide leve
- *   da esquerda que dispara uma vez, via IntersectionObserver.
+ * Wrapper de card, com comportamento por dispositivo:
+ * - Desktop (mouse): parallax vertical sutil.
+ * - Tablet: o card ENTRA deslizando da esquerda e SAI pra direita, ligado ao
+ *   scroll (nesse tamanho performa bem).
+ * - Celular: NENHUM efeito ligado ao scroll (mantém o scroll leve); a entrada
+ *   leve dos cards fica por conta do AnimatedItem.
  *
- * Em ambos, quando o card chega ao centro da tela recebe data-focus="true".
+ * Em todos, quando o card chega ao centro da tela recebe data-focus="true".
  */
 export default function ParallaxItem({
   children,
@@ -29,15 +30,22 @@ export default function ParallaxItem({
     offset: ["start end", "end start"],
   });
   const y = useTransform(scrollYProgress, [0, 1], [speed, -speed]);
+  const x = useTransform(scrollYProgress, [0, 0.28, 0.72, 1], [-72, 0, 0, 72]);
+  const slideOpacity = useTransform(scrollYProgress, [0, 0.22, 0.8, 1], [0, 1, 1, 0]);
 
-  // Parallax só no desktop com mouse. No touch fica estático (scroll liso).
-  const [parallax, setParallax] = useState(false);
+  const [mode, setMode] = useState<"none" | "desktop" | "tablet" | "phone">("none");
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
-    const update = () => setParallax(mq.matches);
+    const deskQ = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
+    const phoneQ = window.matchMedia("(max-width: 767px)");
+    const update = () =>
+      setMode(deskQ.matches ? "desktop" : phoneQ.matches ? "phone" : "tablet");
     update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
+    deskQ.addEventListener("change", update);
+    phoneQ.addEventListener("change", update);
+    return () => {
+      deskQ.removeEventListener("change", update);
+      phoneQ.removeEventListener("change", update);
+    };
   }, []);
 
   useEffect(() => {
@@ -56,12 +64,17 @@ export default function ParallaxItem({
     return () => io.disconnect();
   }, []);
 
+  const style = reduce
+    ? undefined
+    : mode === "desktop"
+      ? { y }
+      : mode === "tablet"
+        ? { x, opacity: slideOpacity }
+        : undefined;
+
   return (
     <div ref={ref} data-focus="false" className={`group/focus ${className ?? ""}`}>
-      <motion.div
-        style={parallax && !reduce ? { y } : undefined}
-        className="h-full will-change-transform"
-      >
+      <motion.div style={style} className="h-full will-change-transform">
         {children}
       </motion.div>
     </div>

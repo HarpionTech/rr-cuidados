@@ -69,6 +69,10 @@ export default function Hero() {
     if (!canvas || !section) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    // canvas offscreen reutilizável pro fundo desfocado barato (downscale→upscale,
+    // sem ctx.filter que travava a cada frame)
+    const blurCanvas = document.createElement("canvas");
+    const blurCtx = blurCanvas.getContext("2d");
     let framesReleased = false;
     let framesReloading = false;
 
@@ -121,26 +125,37 @@ export default function Hero() {
 
       if (isMobileDevice) {
         // O material original é 16:9. No retrato, uma base desfocada preenche a
-        // tela inteira como um fundo fotográfico (não uma faixa cinza chapada),
-        // enquanto o plano nítido usa um recorte mais aberto por cima.
-        const bgScale =
-          Math.max(cssW / img.naturalWidth, cssH / img.naturalHeight) * 1.14;
-        const bgW = img.naturalWidth * bgScale;
-        const bgH = img.naturalHeight * bgScale;
+        // tela como fundo fotográfico e o plano nítido vem por cima.
+        // O desfoque é feito reduzindo o frame e reampliando (barato, roda liso),
+        // em vez de ctx.filter="blur()" (que travava a cada frame).
+        if (blurCtx) {
+          const bw = 64;
+          const bh = Math.max(1, Math.round((bw * img.naturalHeight) / img.naturalWidth));
+          blurCanvas.width = bw;
+          blurCanvas.height = bh;
+          blurCtx.drawImage(img, 0, 0, bw, bh);
 
-        ctx.save();
-        ctx.filter = "blur(26px)";
-        ctx.drawImage(
-          img,
-          (cssW - bgW) / 2,
-          (cssH - bgH) * 0.3,
-          bgW,
-          bgH
-        );
-        ctx.restore();
+          const bgScale = Math.max(cssW / bw, cssH / bh) * 1.1;
+          const bgW = bw * bgScale;
+          const bgH = bh * bgScale;
+          ctx.imageSmoothingEnabled = true;
+          ctx.drawImage(blurCanvas, (cssW - bgW) / 2, (cssH - bgH) * 0.3, bgW, bgH);
+        } else {
+          const bgScale =
+            Math.max(cssW / img.naturalWidth, cssH / img.naturalHeight) * 1.1;
+          ctx.globalAlpha = 0.7;
+          ctx.drawImage(
+            img,
+            (cssW - img.naturalWidth * bgScale) / 2,
+            (cssH - img.naturalHeight * bgScale) * 0.3,
+            img.naturalWidth * bgScale,
+            img.naturalHeight * bgScale
+          );
+          ctx.globalAlpha = 1;
+        }
 
-        // escurece o fundo desfocado pra coesão e leitura
-        ctx.fillStyle = "rgba(10,20,34,0.46)";
+        // escurece o fundo pra coesão e leitura
+        ctx.fillStyle = "rgba(10,20,34,0.44)";
         ctx.fillRect(0, 0, cssW, cssH);
 
         const subjectScale = (cssW * 1.5) / img.naturalWidth;

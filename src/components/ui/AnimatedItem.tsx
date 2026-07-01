@@ -17,33 +17,42 @@ export default function AnimatedItem({
   className?: string;
   as?: "div" | "li" | "h2" | "p" | "span" | "figure";
   delay?: number;
-  /** soft = blur + rise · card = rise (desktop) / slide lateral (touch) */
+  /** soft = blur + rise · card = reveal do card */
   variant?: "soft" | "card";
 }) {
   const reduceMotion = useReducedMotion();
   const MotionTag = motion[as];
 
-  // No touch, os cards entram deslizando da esquerda (o parallax fica desligado
-  // lá, então esta é a única animação — sem pulo e sem sumir).
-  const [touch, setTouch] = useState(false);
+  const [mode, setMode] = useState<"desktop" | "tablet" | "phone">("desktop");
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 1023px), (pointer: coarse)");
-    const update = () => setTouch(mq.matches);
+    const deskQ = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
+    const phoneQ = window.matchMedia("(max-width: 767px)");
+    const update = () =>
+      setMode(deskQ.matches ? "desktop" : phoneQ.matches ? "phone" : "tablet");
     update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
+    deskQ.addEventListener("change", update);
+    phoneQ.addEventListener("change", update);
+    return () => {
+      deskQ.removeEventListener("change", update);
+      phoneQ.removeEventListener("change", update);
+    };
   }, []);
+
+  // No tablet o slide do card é feito pelo ParallaxItem — aqui fica estático.
+  if (variant === "card" && mode === "tablet") {
+    return <MotionTag className={className}>{children}</MotionTag>;
+  }
 
   const hidden = reduceMotion
     ? { opacity: 0 }
     : variant === "card"
-      ? touch
-        ? { opacity: 0, x: -48 }
+      ? mode === "phone"
+        ? { opacity: 0, y: 20 } // celular: entrada leve, sem parallax
         : { opacity: 0, y: 36, scale: 0.975 }
       : { opacity: 0, y: 30 };
   const show =
     variant === "card"
-      ? { opacity: 1, x: 0, y: 0, scale: 1 }
+      ? { opacity: 1, y: 0, scale: 1 }
       : { opacity: 1, y: 0 };
 
   return (
