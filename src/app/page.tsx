@@ -18,10 +18,12 @@ export default function Home() {
       <main id="hero">
         <Hero />
         <Marquee />
-        <Sobre />
-        <Cuidados />
-        <Diferenciais />
-        <Regioes />
+        <div className="mesh-sections">
+          <Sobre />
+          <Cuidados />
+          <Diferenciais />
+          <Regioes />
+        </div>
         <CTA />
       </main>
       <Footer />

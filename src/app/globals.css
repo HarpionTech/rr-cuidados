@@ -153,6 +153,19 @@ body::after {
   animation: insta-shift 5s ease-in-out infinite alternate;
 }
 
+/* malha de gradiente pastel — fundo das seções "Quem somos" → "Regiões".
+   Blooms suaves das cores da marca sobre o creme; estático (sem custo). */
+.mesh-sections {
+  background-color: var(--color-cream);
+  background-image:
+    radial-gradient(680px 680px at 15% 16%, rgba(108, 192, 79, 0.13), transparent 70%),
+    radial-gradient(620px 620px at 86% 30%, rgba(0, 97, 169, 0.11), transparent 70%),
+    radial-gradient(600px 600px at 72% 68%, rgba(240, 144, 26, 0.09), transparent 70%),
+    radial-gradient(660px 660px at 22% 88%, rgba(0, 74, 146, 0.08), transparent 70%);
+  background-size: 1500px 1500px;
+  background-repeat: repeat;
+}
+
 /* utilitários */
 @utility neu {
   background: var(--color-white-warm);

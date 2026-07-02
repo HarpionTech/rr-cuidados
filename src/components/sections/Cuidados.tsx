@@ -15,7 +15,7 @@ const cards = [
 
 export default function Cuidados() {
   return (
-    <div className="bg-cream-2">
+    <div>
       <AnimatedSection
         id="cuidados"
         className="mx-auto max-w-[1320px] px-6 py-24 md:px-[7vw] md:py-36"
