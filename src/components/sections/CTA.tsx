@@ -8,10 +8,10 @@ export default function CTA() {
   return (
     <AnimatedSection
       id="contato"
-      className="cta-botanical relative overflow-hidden px-6 py-28 text-center text-white-warm md:px-[7vw] md:py-40"
+      className="cta-botanical relative overflow-hidden px-6 py-28 text-center text-ink md:px-[7vw] md:py-40"
     >
       <div className="mx-auto max-w-3xl">
-        <AnimatedItem as="span" className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-leaf">
+        <AnimatedItem as="span" className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-blue">
           Vamos conversar
         </AnimatedItem>
         <RevealText
@@ -20,7 +20,7 @@ export default function CTA() {
         >
           Dê a quem você ama o cuidado que ele merece.
         </RevealText>
-        <AnimatedItem as="p" className="mx-auto mt-6 max-w-[52ch] text-lg text-white-warm/85">
+        <AnimatedItem as="p" className="mx-auto mt-6 max-w-[52ch] text-lg text-ink-soft">
           Conte para nós sua necessidade. Vamos juntos desenhar o cuidado ideal —
           com tranquilidade, sem compromisso.
         </AnimatedItem>
