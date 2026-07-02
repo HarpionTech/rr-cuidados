@@ -160,12 +160,11 @@ body::after {
   overflow: hidden;
   background-color: #f4efe4;
   background-image:
-    radial-gradient(ellipse 72% 11% at 8% 9%, rgba(108, 192, 79, 0.095), transparent 72%),
-    radial-gradient(ellipse 68% 12% at 96% 48%, rgba(0, 74, 146, 0.08), transparent 74%),
-    radial-gradient(ellipse 62% 10% at 12% 84%, rgba(240, 144, 26, 0.065), transparent 74%),
-    repeating-linear-gradient(0deg, rgba(20, 35, 58, 0.012) 0, rgba(20, 35, 58, 0.012) 1px, transparent 1px, transparent 7px),
-    repeating-linear-gradient(94deg, transparent 0, transparent 46px, rgba(114, 94, 63, 0.013) 47px, transparent 48px),
-    linear-gradient(180deg, #f7f3ea 0%, #f2ecdf 52%, #f7f2e8 100%);
+    radial-gradient(ellipse 78% 14% at 104% 46%, rgba(0, 74, 146, 0.045), transparent 74%),
+    radial-gradient(ellipse 72% 13% at -8% 82%, rgba(66, 57, 45, 0.035), transparent 76%),
+    repeating-linear-gradient(0deg, rgba(20, 35, 58, 0.008) 0, rgba(20, 35, 58, 0.008) 1px, transparent 1px, transparent 9px),
+    repeating-linear-gradient(8deg, transparent 0, transparent 128px, rgba(114, 94, 63, 0.012) 129px, transparent 130px),
+    linear-gradient(180deg, #f8f4ec 0%, #f2ecdf 52%, #f8f3ea 100%);
 }
 
 .editorial-sections::before {
@@ -174,8 +173,8 @@ body::after {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.34;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='900' viewBox='0 0 1000 900'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M-90 175 C145 40 300 310 535 164 S860 35 1090 184' stroke='%23004a92' stroke-opacity='.18'/%3E%3Cpath d='M-110 198 C130 62 305 332 548 188 S875 58 1110 205' stroke='%23004a92' stroke-opacity='.1'/%3E%3Cpath d='M-120 640 C145 495 310 770 570 625 S890 500 1120 662' stroke='%236cc04f' stroke-opacity='.18'/%3E%3Cpath d='M-100 665 C160 520 325 790 585 650 S900 526 1100 688' stroke='%236cc04f' stroke-opacity='.1'/%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.3;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='900' viewBox='0 0 1000 900'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M-90 175 C145 40 300 310 535 164 S860 35 1090 184' stroke='%23004a92' stroke-opacity='.16'/%3E%3Cpath d='M-110 198 C130 62 305 332 548 188 S875 58 1110 205' stroke='%23004a92' stroke-opacity='.08'/%3E%3Cpath d='M-120 640 C145 495 310 770 570 625 S890 500 1120 662' stroke='%238b7a63' stroke-opacity='.13'/%3E%3Cpath d='M-100 665 C160 520 325 790 585 650 S900 526 1100 688' stroke='%238b7a63' stroke-opacity='.07'/%3E%3C/g%3E%3C/svg%3E");
   background-size: min(1000px, 92vw) auto;
   background-position: center top;
   background-repeat: repeat-y;

@@ -52,8 +52,6 @@ export default function Diferenciais() {
         03 — Por que a RR
       </AnimatedItem>
       */}
-      <div className="pointer-events-none absolute -right-32 top-16 h-80 w-80 rounded-full bg-brand-leaf/10 blur-3xl" />
-
       <div className="relative max-w-3xl">
         <RevealText
           as="h2"
