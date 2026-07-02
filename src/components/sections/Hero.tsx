@@ -137,13 +137,13 @@ export default function Hero() {
           // fundo desfocado LISO e barato: reduz o frame com um leve blur no
           // offscreen pequeno e reamplia com suavização de ALTA qualidade — sem
           // o "pixelado" do upscale comum e sem o custo do blur em tela cheia.
-          const bw = Math.max(110, Math.round(cssW / 4));
+          const bw = Math.max(190, Math.round(cssW / 2.4));
           const bh = Math.max(1, Math.round((bw * img.naturalHeight) / img.naturalWidth));
           blurCanvas.width = bw;
           blurCanvas.height = bh;
           blurCtx.imageSmoothingEnabled = true;
           blurCtx.imageSmoothingQuality = "high";
-          blurCtx.filter = "blur(4px)";
+          blurCtx.filter = "blur(2px)";
           blurCtx.drawImage(img, 0, 0, bw, bh);
           blurCtx.filter = "none";
 
@@ -167,8 +167,8 @@ export default function Hero() {
           ctx.globalAlpha = 1;
         }
 
-        // escurece o fundo pra coesão e leitura
-        ctx.fillStyle = "rgba(10,20,34,0.44)";
+        // escurece de leve o fundo (sem apagar o vídeo desfocado atrás)
+        ctx.fillStyle = "rgba(10,20,34,0.26)";
         ctx.fillRect(0, 0, cssW, cssH);
 
         const subjectScale = (cssW * 1.5) / img.naturalWidth;
