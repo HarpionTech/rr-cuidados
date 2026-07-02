@@ -134,7 +134,7 @@ export default function Hero() {
         // O desfoque é feito reduzindo o frame e reampliando (barato, roda liso),
         // em vez de ctx.filter="blur()" (que travava a cada frame).
         if (blurCtx) {
-          const bw = 64;
+          const bw = 110;
           const bh = Math.max(1, Math.round((bw * img.naturalHeight) / img.naturalWidth));
           blurCanvas.width = bw;
           blurCanvas.height = bh;
@@ -163,10 +163,15 @@ export default function Hero() {
         ctx.fillStyle = "rgba(10,20,34,0.44)";
         ctx.fillRect(0, 0, cssW, cssH);
 
-        const subjectScale = (cssW * 1.5) / img.naturalWidth;
+        // o plano nítido preenche ~66% da altura (o maior entre largura e
+        // altura), pra não sobrar aquele fundo desfocado "vazio" embaixo
+        const subjectScale = Math.max(
+          (cssW * 1.55) / img.naturalWidth,
+          (cssH * 0.66) / img.naturalHeight
+        );
         const subjectW = img.naturalWidth * subjectScale;
         const subjectH = img.naturalHeight * subjectScale;
-        const subjectY = Math.max(64, cssH * 0.06);
+        const subjectY = Math.max(48, cssH * 0.05);
 
         ctx.drawImage(
           img,
@@ -179,8 +184,8 @@ export default function Hero() {
         // funde a base do plano nítido no fundo, sem corte seco
         const blend = ctx.createLinearGradient(0, subjectY, 0, subjectY + subjectH);
         blend.addColorStop(0, "rgba(10,20,34,0)");
-        blend.addColorStop(0.68, "rgba(10,20,34,0)");
-        blend.addColorStop(1, "rgba(10,20,34,0.9)");
+        blend.addColorStop(0.6, "rgba(10,20,34,0)");
+        blend.addColorStop(1, "rgba(10,20,34,0.95)");
         ctx.fillStyle = blend;
         ctx.fillRect(0, subjectY, cssW, subjectH + 2);
         return;
