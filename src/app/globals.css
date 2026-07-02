@@ -182,6 +182,20 @@ body::after {
   overflow: visible;
 }
 
+.botanical-effect path,
+.botanical-effect ellipse {
+  vector-effect: non-scaling-stroke;
+}
+
+.botanical-wash {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.botanical-detail {
+  stroke-width: 0.85;
+}
+
 .editorial-sections::after {
   content: "";
   position: absolute;
