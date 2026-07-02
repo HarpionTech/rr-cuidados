@@ -25,8 +25,8 @@ export default function Home() {
           <Cuidados />
           <Diferenciais />
           <Regioes />
+          <CTA />
         </div>
-        <CTA />
       </main>
       <Footer />
       <WhatsAppFloat />
