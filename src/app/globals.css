@@ -167,7 +167,7 @@ body::after {
     linear-gradient(180deg, #f8f4ec 0%, #f2ecdf 52%, #f8f3ea 100%);
 }
 
-.botanical-effect {
+.botanical-image-effect {
   position: absolute;
   inset: 0;
   z-index: 0;
@@ -175,25 +175,26 @@ body::after {
   overflow: hidden;
 }
 
-.botanical-effect svg {
-  display: block;
+.botanical-image-scene {
+  position: absolute;
+  left: 0;
   width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.botanical-effect path,
-.botanical-effect ellipse {
-  vector-effect: non-scaling-stroke;
-}
-
-.botanical-wash {
-  transform-box: fill-box;
+  height: 28%;
+  overflow: hidden;
   transform-origin: center;
 }
 
-.botanical-detail {
-  stroke-width: 0.85;
+.botanical-image-scene img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.28;
+  mix-blend-mode: multiply;
+  filter: saturate(0.82) contrast(0.95);
+}
+
+.botanical-image-mirror {
+  transform: scaleX(-1);
 }
 
 .editorial-sections::after {
@@ -211,10 +212,13 @@ body::after {
 }
 
 @media (max-width: 768px) {
-  .botanical-effect {
-    width: 150%;
-    left: -25%;
-    opacity: 0.88;
+  .botanical-image-scene {
+    left: -20%;
+    width: 140%;
+  }
+
+  .botanical-image-scene img {
+    opacity: 0.22;
   }
 }
 
