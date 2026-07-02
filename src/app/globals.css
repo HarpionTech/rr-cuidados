@@ -167,17 +167,30 @@ body::after {
     linear-gradient(180deg, #f8f4ec 0%, #f2ecdf 52%, #f8f3ea 100%);
 }
 
-.editorial-sections::before {
-  content: "";
+.editorial-effect {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.3;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='900' viewBox='0 0 1000 900'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M-90 175 C145 40 300 310 535 164 S860 35 1090 184' stroke='%23004a92' stroke-opacity='.16'/%3E%3Cpath d='M-110 198 C130 62 305 332 548 188 S875 58 1110 205' stroke='%23004a92' stroke-opacity='.08'/%3E%3Cpath d='M-120 640 C145 495 310 770 570 625 S890 500 1120 662' stroke='%238b7a63' stroke-opacity='.13'/%3E%3Cpath d='M-100 665 C160 520 325 790 585 650 S900 526 1100 688' stroke='%238b7a63' stroke-opacity='.07'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: min(1000px, 92vw) auto;
-  background-position: center top;
-  background-repeat: repeat-y;
+  overflow: hidden;
+}
+
+.editorial-effect svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.editorial-progress {
+  position: absolute;
+  left: max(18px, 3.5vw);
+  top: 2%;
+  bottom: 2%;
+  width: 1px;
+  z-index: 1;
+  transform-origin: top;
+  background: linear-gradient(180deg, transparent, rgba(0, 74, 146, 0.34) 8%, rgba(0, 74, 146, 0.2) 92%, transparent);
 }
 
 .editorial-sections::after {
@@ -195,9 +208,12 @@ body::after {
 }
 
 @media (max-width: 768px) {
-  .editorial-sections::before {
-    opacity: 0.26;
-    background-size: 620px auto;
+  .editorial-effect {
+    opacity: 0.82;
+  }
+
+  .editorial-progress {
+    left: 12px;
   }
 }
 

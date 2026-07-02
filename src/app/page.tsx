@@ -10,6 +10,7 @@ import Regioes from "@/components/sections/Regioes";
 import CTA from "@/components/sections/CTA";
 import Footer from "@/components/sections/Footer";
 import WhatsAppFloat from "@/components/sections/WhatsAppFloat";
+import EditorialPaperEffect from "@/components/ui/EditorialPaperEffect";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
         <Hero />
         <Marquee />
         <div className="editorial-sections">
+          <EditorialPaperEffect />
           <Sobre />
           <Cuidados />
           <Diferenciais />
