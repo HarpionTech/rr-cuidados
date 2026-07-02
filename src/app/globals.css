@@ -153,17 +153,45 @@ body::after {
   animation: insta-shift 5s ease-in-out infinite alternate;
 }
 
-/* malha de gradiente pastel — fundo das seções "Quem somos" → "Regiões".
-   Blooms suaves das cores da marca sobre o creme; estático (sem custo). */
+/* Organic Ambient — uma paisagem vertical contínua das seções Sobre → Regiões.
+   Os halos usam apenas gradientes estáticos: profundidade sem custo de RAF/blur. */
 .mesh-sections {
+  position: relative;
+  isolation: isolate;
   background-color: var(--color-cream);
   background-image:
-    radial-gradient(720px 720px at 14% 15%, rgba(108, 192, 79, 0.24), transparent 72%),
-    radial-gradient(660px 660px at 88% 28%, rgba(0, 97, 169, 0.20), transparent 72%),
-    radial-gradient(640px 640px at 72% 66%, rgba(240, 144, 26, 0.17), transparent 72%),
-    radial-gradient(700px 700px at 20% 90%, rgba(0, 74, 146, 0.15), transparent 72%);
-  background-size: 1500px 1500px;
-  background-repeat: repeat;
+    radial-gradient(ellipse 70% 12% at -8% 8%, rgba(108, 192, 79, 0.22) 0%, rgba(108, 192, 79, 0.08) 42%, transparent 72%),
+    radial-gradient(ellipse 62% 13% at 108% 24%, rgba(0, 97, 169, 0.18) 0%, rgba(0, 97, 169, 0.07) 45%, transparent 74%),
+    radial-gradient(ellipse 58% 11% at 8% 43%, rgba(240, 144, 26, 0.13) 0%, rgba(240, 144, 26, 0.05) 46%, transparent 75%),
+    radial-gradient(ellipse 66% 13% at 96% 61%, rgba(108, 192, 79, 0.18) 0%, rgba(108, 192, 79, 0.06) 44%, transparent 74%),
+    radial-gradient(ellipse 68% 12% at -5% 79%, rgba(0, 74, 146, 0.16) 0%, rgba(0, 74, 146, 0.055) 45%, transparent 74%),
+    radial-gradient(ellipse 54% 10% at 88% 96%, rgba(240, 144, 26, 0.11) 0%, transparent 74%),
+    linear-gradient(180deg, #f6f2ea 0%, #f3f0e8 48%, #f7f3eb 100%);
+  background-repeat: no-repeat;
+}
+
+.mesh-sections::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(251, 249, 244, 0.42) 48%, transparent 100%),
+    radial-gradient(circle at 50% 32%, rgba(251, 249, 244, 0.58), transparent 24%),
+    radial-gradient(circle at 44% 72%, rgba(251, 249, 244, 0.46), transparent 22%);
+}
+
+@media (max-width: 768px) {
+  .mesh-sections {
+    background-image:
+      radial-gradient(ellipse 115% 10% at -28% 9%, rgba(108, 192, 79, 0.2), transparent 72%),
+      radial-gradient(ellipse 105% 11% at 128% 27%, rgba(0, 97, 169, 0.16), transparent 72%),
+      radial-gradient(ellipse 100% 10% at -20% 48%, rgba(240, 144, 26, 0.1), transparent 74%),
+      radial-gradient(ellipse 112% 11% at 126% 68%, rgba(108, 192, 79, 0.16), transparent 74%),
+      radial-gradient(ellipse 112% 11% at -25% 88%, rgba(0, 74, 146, 0.14), transparent 74%),
+      linear-gradient(180deg, #f6f2ea 0%, #f3f0e8 48%, #f7f3eb 100%);
+  }
 }
 
 /* utilitários */
