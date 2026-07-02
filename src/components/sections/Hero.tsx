@@ -134,16 +134,24 @@ export default function Hero() {
         // O desfoque é feito reduzindo o frame e reampliando (barato, roda liso),
         // em vez de ctx.filter="blur()" (que travava a cada frame).
         if (blurCtx) {
-          const bw = 110;
+          // fundo desfocado LISO e barato: reduz o frame com um leve blur no
+          // offscreen pequeno e reamplia com suavização de ALTA qualidade — sem
+          // o "pixelado" do upscale comum e sem o custo do blur em tela cheia.
+          const bw = Math.max(110, Math.round(cssW / 4));
           const bh = Math.max(1, Math.round((bw * img.naturalHeight) / img.naturalWidth));
           blurCanvas.width = bw;
           blurCanvas.height = bh;
+          blurCtx.imageSmoothingEnabled = true;
+          blurCtx.imageSmoothingQuality = "high";
+          blurCtx.filter = "blur(4px)";
           blurCtx.drawImage(img, 0, 0, bw, bh);
+          blurCtx.filter = "none";
 
           const bgScale = Math.max(cssW / bw, cssH / bh) * 1.1;
           const bgW = bw * bgScale;
           const bgH = bh * bgScale;
           ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = "high";
           ctx.drawImage(blurCanvas, (cssW - bgW) / 2, (cssH - bgH) * 0.3, bgW, bgH);
         } else {
           const bgScale =
@@ -163,15 +171,10 @@ export default function Hero() {
         ctx.fillStyle = "rgba(10,20,34,0.44)";
         ctx.fillRect(0, 0, cssW, cssH);
 
-        // o plano nítido preenche ~66% da altura (o maior entre largura e
-        // altura), pra não sobrar aquele fundo desfocado "vazio" embaixo
-        const subjectScale = Math.max(
-          (cssW * 1.55) / img.naturalWidth,
-          (cssH * 0.66) / img.naturalHeight
-        );
+        const subjectScale = (cssW * 1.5) / img.naturalWidth;
         const subjectW = img.naturalWidth * subjectScale;
         const subjectH = img.naturalHeight * subjectScale;
-        const subjectY = Math.max(48, cssH * 0.05);
+        const subjectY = Math.max(64, cssH * 0.06);
 
         ctx.drawImage(
           img,
@@ -184,8 +187,8 @@ export default function Hero() {
         // funde a base do plano nítido no fundo, sem corte seco
         const blend = ctx.createLinearGradient(0, subjectY, 0, subjectY + subjectH);
         blend.addColorStop(0, "rgba(10,20,34,0)");
-        blend.addColorStop(0.6, "rgba(10,20,34,0)");
-        blend.addColorStop(1, "rgba(10,20,34,0.95)");
+        blend.addColorStop(0.68, "rgba(10,20,34,0)");
+        blend.addColorStop(1, "rgba(10,20,34,0.9)");
         ctx.fillStyle = blend;
         ctx.fillRect(0, subjectY, cssW, subjectH + 2);
         return;
