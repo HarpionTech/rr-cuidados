@@ -153,115 +153,52 @@ body::after {
   animation: insta-shift 5s ease-in-out infinite alternate;
 }
 
-/* Organic Ambient — uma paisagem vertical contínua das seções Sobre → Regiões.
-   Os halos usam apenas gradientes estáticos: profundidade sem custo de RAF/blur. */
-.mesh-sections {
+/* Editorial Paper — papel marfim, fibras e linhas impressas como marca-d'água. */
+.editorial-sections {
   position: relative;
   isolation: isolate;
-  background-color: var(--color-cream);
+  overflow: hidden;
+  background-color: #f4efe4;
   background-image:
-    radial-gradient(ellipse 70% 12% at -8% 8%, rgba(108, 192, 79, 0.22) 0%, rgba(108, 192, 79, 0.08) 42%, transparent 72%),
-    radial-gradient(ellipse 62% 13% at 108% 24%, rgba(0, 97, 169, 0.18) 0%, rgba(0, 97, 169, 0.07) 45%, transparent 74%),
-    radial-gradient(ellipse 58% 11% at 8% 43%, rgba(240, 144, 26, 0.13) 0%, rgba(240, 144, 26, 0.05) 46%, transparent 75%),
-    radial-gradient(ellipse 66% 13% at 96% 61%, rgba(108, 192, 79, 0.18) 0%, rgba(108, 192, 79, 0.06) 44%, transparent 74%),
-    radial-gradient(ellipse 68% 12% at -5% 79%, rgba(0, 74, 146, 0.16) 0%, rgba(0, 74, 146, 0.055) 45%, transparent 74%),
-    radial-gradient(ellipse 54% 10% at 88% 96%, rgba(240, 144, 26, 0.11) 0%, transparent 74%),
-    linear-gradient(180deg, #f6f2ea 0%, #f3f0e8 48%, #f7f3eb 100%);
-  background-repeat: no-repeat;
+    radial-gradient(ellipse 72% 11% at 8% 9%, rgba(108, 192, 79, 0.095), transparent 72%),
+    radial-gradient(ellipse 68% 12% at 96% 48%, rgba(0, 74, 146, 0.08), transparent 74%),
+    radial-gradient(ellipse 62% 10% at 12% 84%, rgba(240, 144, 26, 0.065), transparent 74%),
+    repeating-linear-gradient(0deg, rgba(20, 35, 58, 0.012) 0, rgba(20, 35, 58, 0.012) 1px, transparent 1px, transparent 7px),
+    repeating-linear-gradient(94deg, transparent 0, transparent 46px, rgba(114, 94, 63, 0.013) 47px, transparent 48px),
+    linear-gradient(180deg, #f7f3ea 0%, #f2ecdf 52%, #f7f2e8 100%);
 }
 
-.mesh-sections::before {
+.editorial-sections::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
-  background:
-    linear-gradient(90deg, transparent 0%, rgba(251, 249, 244, 0.42) 48%, transparent 100%),
-    radial-gradient(circle at 50% 32%, rgba(251, 249, 244, 0.58), transparent 24%),
-    radial-gradient(circle at 44% 72%, rgba(251, 249, 244, 0.46), transparent 22%);
+  opacity: 0.34;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='900' viewBox='0 0 1000 900'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M-90 175 C145 40 300 310 535 164 S860 35 1090 184' stroke='%23004a92' stroke-opacity='.18'/%3E%3Cpath d='M-110 198 C130 62 305 332 548 188 S875 58 1110 205' stroke='%23004a92' stroke-opacity='.1'/%3E%3Cpath d='M-120 640 C145 495 310 770 570 625 S890 500 1120 662' stroke='%236cc04f' stroke-opacity='.18'/%3E%3Cpath d='M-100 665 C160 520 325 790 585 650 S900 526 1100 688' stroke='%236cc04f' stroke-opacity='.1'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: min(1000px, 92vw) auto;
+  background-position: center top;
+  background-repeat: repeat-y;
 }
 
-.mesh-sections > section {
+.editorial-sections::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 253, 248, 0.3) 50%, transparent 100%);
+}
+
+.editorial-sections > section {
   position: relative;
   z-index: 1;
 }
 
-.organic-ambient {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-  contain: layout paint;
-}
-
-.organic-orb {
-  position: absolute;
-  display: block;
-  width: clamp(360px, 52vw, 780px);
-  aspect-ratio: 1.25 / 1;
-  border-radius: 47% 53% 62% 38% / 42% 46% 54% 58%;
-  opacity: 0.72;
-  transform: translateZ(0);
-  will-change: transform;
-}
-
-.organic-orb--leaf {
-  left: -24%;
-  top: 1%;
-  background: radial-gradient(ellipse at 56% 48%, rgba(108, 192, 79, 0.38), rgba(108, 192, 79, 0.13) 43%, transparent 72%);
-}
-
-.organic-orb--blue {
-  right: -22%;
-  top: 20%;
-  background: radial-gradient(ellipse at 44% 52%, rgba(0, 97, 169, 0.3), rgba(0, 97, 169, 0.1) 44%, transparent 72%);
-}
-
-.organic-orb--orange {
-  left: -18%;
-  top: 42%;
-  background: radial-gradient(ellipse at 54% 50%, rgba(240, 144, 26, 0.24), rgba(240, 144, 26, 0.08) 45%, transparent 73%);
-}
-
-.organic-orb--green {
-  right: -20%;
-  top: 64%;
-  background: radial-gradient(ellipse at 45% 48%, rgba(58, 158, 63, 0.28), rgba(58, 158, 63, 0.09) 44%, transparent 73%);
-}
-
-.organic-orb--azure {
-  left: -22%;
-  top: 84%;
-  background: radial-gradient(ellipse at 56% 48%, rgba(0, 74, 146, 0.27), rgba(0, 74, 146, 0.08) 44%, transparent 73%);
-}
-
 @media (max-width: 768px) {
-  .mesh-sections {
-    background-image:
-      radial-gradient(ellipse 115% 10% at -28% 9%, rgba(108, 192, 79, 0.2), transparent 72%),
-      radial-gradient(ellipse 105% 11% at 128% 27%, rgba(0, 97, 169, 0.16), transparent 72%),
-      radial-gradient(ellipse 100% 10% at -20% 48%, rgba(240, 144, 26, 0.1), transparent 74%),
-      radial-gradient(ellipse 112% 11% at 126% 68%, rgba(108, 192, 79, 0.16), transparent 74%),
-      radial-gradient(ellipse 112% 11% at -25% 88%, rgba(0, 74, 146, 0.14), transparent 74%),
-      linear-gradient(180deg, #f6f2ea 0%, #f3f0e8 48%, #f7f3eb 100%);
-  }
-
-  .organic-orb {
-    width: min(128vw, 540px);
-    opacity: 0.62;
-  }
-
-  .organic-orb--leaf,
-  .organic-orb--orange,
-  .organic-orb--azure {
-    left: -52%;
-  }
-
-  .organic-orb--blue,
-  .organic-orb--green {
-    right: -52%;
+  .editorial-sections::before {
+    opacity: 0.26;
+    background-size: 620px auto;
   }
 }
 

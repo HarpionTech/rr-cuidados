@@ -10,7 +10,6 @@ import Regioes from "@/components/sections/Regioes";
 import CTA from "@/components/sections/CTA";
 import Footer from "@/components/sections/Footer";
 import WhatsAppFloat from "@/components/sections/WhatsAppFloat";
-import OrganicAmbient from "@/components/ui/OrganicAmbient";
 
 export default function Home() {
   return (
@@ -19,8 +18,7 @@ export default function Home() {
       <main id="hero">
         <Hero />
         <Marquee />
-        <div className="mesh-sections">
-          <OrganicAmbient />
+        <div className="editorial-sections">
           <Sobre />
           <Cuidados />
           <Diferenciais />
