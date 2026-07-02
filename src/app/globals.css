@@ -182,6 +182,61 @@ body::after {
     radial-gradient(circle at 44% 72%, rgba(251, 249, 244, 0.46), transparent 22%);
 }
 
+.mesh-sections > section {
+  position: relative;
+  z-index: 1;
+}
+
+.organic-ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: layout paint;
+}
+
+.organic-orb {
+  position: absolute;
+  display: block;
+  width: clamp(360px, 52vw, 780px);
+  aspect-ratio: 1.25 / 1;
+  border-radius: 47% 53% 62% 38% / 42% 46% 54% 58%;
+  opacity: 0.72;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.organic-orb--leaf {
+  left: -24%;
+  top: 1%;
+  background: radial-gradient(ellipse at 56% 48%, rgba(108, 192, 79, 0.38), rgba(108, 192, 79, 0.13) 43%, transparent 72%);
+}
+
+.organic-orb--blue {
+  right: -22%;
+  top: 20%;
+  background: radial-gradient(ellipse at 44% 52%, rgba(0, 97, 169, 0.3), rgba(0, 97, 169, 0.1) 44%, transparent 72%);
+}
+
+.organic-orb--orange {
+  left: -18%;
+  top: 42%;
+  background: radial-gradient(ellipse at 54% 50%, rgba(240, 144, 26, 0.24), rgba(240, 144, 26, 0.08) 45%, transparent 73%);
+}
+
+.organic-orb--green {
+  right: -20%;
+  top: 64%;
+  background: radial-gradient(ellipse at 45% 48%, rgba(58, 158, 63, 0.28), rgba(58, 158, 63, 0.09) 44%, transparent 73%);
+}
+
+.organic-orb--azure {
+  left: -22%;
+  top: 84%;
+  background: radial-gradient(ellipse at 56% 48%, rgba(0, 74, 146, 0.27), rgba(0, 74, 146, 0.08) 44%, transparent 73%);
+}
+
 @media (max-width: 768px) {
   .mesh-sections {
     background-image:
@@ -191,6 +246,22 @@ body::after {
       radial-gradient(ellipse 112% 11% at 126% 68%, rgba(108, 192, 79, 0.16), transparent 74%),
       radial-gradient(ellipse 112% 11% at -25% 88%, rgba(0, 74, 146, 0.14), transparent 74%),
       linear-gradient(180deg, #f6f2ea 0%, #f3f0e8 48%, #f7f3eb 100%);
+  }
+
+  .organic-orb {
+    width: min(128vw, 540px);
+    opacity: 0.62;
+  }
+
+  .organic-orb--leaf,
+  .organic-orb--orange,
+  .organic-orb--azure {
+    left: -52%;
+  }
+
+  .organic-orb--blue,
+  .organic-orb--green {
+    right: -52%;
   }
 }
 
